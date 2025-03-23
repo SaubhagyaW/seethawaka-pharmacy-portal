@@ -1,6 +1,7 @@
 
-import { Heart, Clock, Medal, Shield } from "lucide-react";
+import { Heart, Clock, Medal, Shield, PiggyBank, Home, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface FeaturesProps {
   className?: string;
@@ -9,27 +10,39 @@ interface FeaturesProps {
 const features = [
   {
     icon: Heart,
-    title: "Quality Healthcare",
-    description: "We provide only the highest quality medicines and healthcare products to ensure your wellbeing.",
+    title: "Your Trusted Healthcare Partner",
+    description: "At Seethawaka Pharmacy, we pride ourselves on being more than just a place to fill prescriptions. We are your dedicated healthcare partners committed to your wellbeing.",
     delay: 0.1
   },
   {
-    icon: Clock,
-    title: "Extended Hours",
-    description: "Open early and late to accommodate your busy schedule and urgent healthcare needs.",
-    delay: 0.3
-  },
-  {
     icon: Medal,
-    title: "Expert Pharmacists",
-    description: "Our qualified pharmacists offer professional advice and personalized healthcare guidance.",
-    delay: 0.5
+    title: "Expert Pharmaceutical Care",
+    description: "Our team of experienced pharmacists offers personalized consultation and medication management to ensure you receive the right treatment for your needs.",
+    delay: 0.2
   },
   {
     icon: Shield,
-    title: "Trusted Service",
-    description: "Serving the community with integrity and care for over 20 years.",
-    delay: 0.7
+    title: "Wide Range of Products",
+    description: "From prescription medications to wellness products, we stock a comprehensive selection of healthcare items to meet all your family's needs under one roof.",
+    delay: 0.3
+  },
+  {
+    icon: PiggyBank,
+    title: "Competitive Pricing",
+    description: "We believe quality healthcare should be accessible to all. Our competitive pricing and special offers help you save on essential medications without compromising on quality.",
+    delay: 0.4
+  },
+  {
+    icon: Clock,
+    title: "Convenient Services",
+    description: "Enjoy the convenience of our quick prescription refills, medication delivery service, and extended operating hours designed to accommodate your busy schedule.",
+    delay: 0.5
+  },
+  {
+    icon: Users,
+    title: "Community-Centered Approach",
+    description: "As a local pharmacy, we understand our community's unique healthcare needs and tailor our services accordingly, creating lasting relationships with our customers.",
+    delay: 0.6
   }
 ];
 
@@ -46,19 +59,21 @@ const Features = ({ className }: FeaturesProps) => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div 
+            <Card 
               key={index} 
-              className="bg-gray-50 rounded-xl p-8 border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1 animate-fade-up"
+              className="border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1 animate-fade-up bg-gray-50"
               style={{ animationDelay: `${feature.delay}s` }}
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center mb-6">
-                <feature.icon className="h-6 w-6 text-pharmacy-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </div>
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center mb-6">
+                  <feature.icon className="h-6 w-6 text-pharmacy-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
