@@ -44,10 +44,10 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <Link 
             to="/" 
-            className="flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            className="flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Logo size="md" />
-            <span className="text-xl font-display font-medium tracking-tight">
+            <Logo size="lg" />
+            <span className="text-xl font-display font-bold tracking-tight uppercase text-[#0EA5E9]">
               Seethawaka Pharmacy
             </span>
           </Link>
@@ -116,8 +116,8 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Logo size="sm" />
-                <span className="text-lg font-display font-medium">
+                <Logo size="md" />
+                <span className="text-lg font-display font-bold uppercase text-[#0EA5E9]">
                   Seethawaka Pharmacy
                 </span>
               </div>
