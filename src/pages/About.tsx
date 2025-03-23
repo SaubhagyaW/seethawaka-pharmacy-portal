@@ -105,20 +105,28 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <PharmacistCard 
-              name="Dr. Amara Silva"
-              title="Head Pharmacist"
-              description="With extensive training and education, Dr. Silva leads our team with expertise in medication management and patient care."
-              imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
+              name="Mr. Gihan Wickramaarachchi"
+              title="Owner"
+              description="As the founder of Seethawaka Pharmacy, Mr. Wickramaarachchi brings his vision of modern, accessible healthcare to our community."
+              imageUrl="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.1}
             />
             
             <PharmacistCard 
-              name="Nadun Perera"
-              title="Owner"
-              description="As the founder of Seethawaka Pharmacy, Mr. Perera brings his vision of modern, accessible healthcare to our community."
-              imageUrl="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
+              name="Ms. Bla bla"
+              title="Head Pharmacist"
+              description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
+              imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
+              delay={0.2}
+            />
+            
+            <PharmacistCard 
+              name="Mr. Lahiru"
+              title="Pharmacist"
+              description="Dedicated to patient education and medication safety, Mr. Lahiru ensures our customers receive the best pharmaceutical care."
+              imageUrl="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.3}
             />
           </div>
