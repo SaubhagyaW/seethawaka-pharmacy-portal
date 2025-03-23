@@ -47,8 +47,8 @@ const Hero = ({ className }: HeroProps) => {
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-pharmacy-100 to-medical-100 transform rotate-3 scale-[0.96] animate-fade-in" style={{ animationDelay: '0.6s' }}></div>
             <div className="relative overflow-hidden rounded-2xl shadow-xl h-full">
               <img 
-                src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8" 
-                alt="Modern pharmacy interior with medications" 
+                src="https://images.unsplash.com/photo-1576602976047-174e57a47881?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8" 
+                alt="Pharmacist arranging medication on shelves" 
                 className="w-full h-full object-cover image-fade-in"
                 loading="lazy"
               />
