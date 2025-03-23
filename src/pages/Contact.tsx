@@ -169,7 +169,7 @@ const Contact = () => {
             </div>
             <div className="h-[400px] rounded-xl overflow-hidden shadow-lg animate-fade-up">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9791927333395!2d80.08165907466681!3d6.896893993096642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae250a5d7e2b38d%3A0x4bbc9b01be352268!2sSeethawaka%20Pharmacy!5e0!3m2!1sen!2sus!4v1698158345650!5m2!1sen!2sus" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.978732939736!2d80.08208501538759!3d6.897066030341858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae250a3802c64e9%3A0xf556a5c3a099a9f!2sSeethawaka%20Pharmacy!5e0!3m2!1sen!2sus!4v1710867742913!5m2!1sen!2sus" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
