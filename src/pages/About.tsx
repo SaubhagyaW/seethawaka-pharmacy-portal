@@ -22,10 +22,10 @@ const About = () => {
               About Us
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-              Committed to Your Health <span className="text-pharmacy-600">Since 2023</span>
+              Committed to Your Health <span className="text-pharmacy-600">& Wellbeing</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy is a newly opened healthcare destination, bringing fresh energy and modern healthcare solutions to our community.
+              Seethawaka Pharmacy is a brand new healthcare destination, bringing fresh energy and modern healthcare solutions to our community.
             </p>
           </div>
         </div>
@@ -51,7 +51,7 @@ const About = () => {
                 Our Mission & Values
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-                As a new establishment, we're dedicated to bringing innovative healthcare solutions with a personal touch to our community.
+                As a brand new establishment, we're dedicated to bringing innovative healthcare solutions with a personal touch to our community.
               </p>
               
               <div className="space-y-6">
@@ -74,7 +74,7 @@ const About = () => {
                   {
                     icon: History,
                     title: "Our Beginning",
-                    description: "Founded in 2023, we're bringing fresh perspectives and modern healthcare solutions to serve you better."
+                    description: "We're excited to open our doors for the first time, bringing fresh perspectives and modern healthcare solutions to serve you better."
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex gap-4">

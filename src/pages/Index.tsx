@@ -73,7 +73,7 @@ const Index = () => {
                   We're Here to Help
                 </h2>
                 <p className="text-xl text-gray-600 mb-8">
-                  Visit our newly opened pharmacy for personalized care or contact us for more information about our services.
+                  Visit our brand new pharmacy for personalized care or contact us for more information about our services.
                 </p>
                 
                 <div className="space-y-6">

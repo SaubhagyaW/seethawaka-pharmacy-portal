@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -28,7 +27,7 @@ const Hero = ({ className }: HeroProps) => {
               Quality Healthcare <span className="text-pharmacy-600">Made Accessible</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy is newly opened to provide expert care, quality medicines, and personalized health solutions to keep you and your family healthy.
+              Seethawaka Pharmacy is brand new to your community, providing expert care, quality medicines, and personalized health solutions to keep you and your family healthy.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link 
