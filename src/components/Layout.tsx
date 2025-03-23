@@ -47,7 +47,7 @@ const Layout = ({ children }: LayoutProps) => {
             className="flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <Logo size="lg" />
-            <span className="text-xl font-display font-bold tracking-tight uppercase text-[#0EA5E9]">
+            <span className="pharmacy-title text-xl">
               Seethawaka Pharmacy
             </span>
           </Link>
@@ -117,7 +117,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Logo size="md" />
-                <span className="text-lg font-display font-bold uppercase text-[#0EA5E9]">
+                <span className="pharmacy-title text-lg">
                   Seethawaka Pharmacy
                 </span>
               </div>

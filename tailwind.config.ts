@@ -20,7 +20,8 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'system-ui', 'sans-serif'],
-				display: ['SF Pro Display', 'Inter', 'sans-serif']
+				display: ['SF Pro Display', 'Inter', 'sans-serif'],
+				pharmacy: ['Montserrat', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',
