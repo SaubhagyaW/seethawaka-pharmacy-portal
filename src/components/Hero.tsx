@@ -52,7 +52,7 @@ const Hero = ({ className }: HeroProps) => {
               <img 
                 src="/lovable-uploads/c3b27540-227b-4533-b7c4-307b193b5618.png" 
                 alt="Pharmacist in white coat with stethoscope giving thumbs up" 
-                className="w-full h-full object-cover image-fade-in"
+                className="w-full h-full object-cover"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-medical-950/30 to-transparent"></div>
