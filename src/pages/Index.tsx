@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Pill, MessageCircleHeart, Stethoscope, Truck, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -23,21 +23,36 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Prescription Services",
-                description: "Quick and accurate dispensing of your medications with professional guidance.",
+                icon: Pill,
+                title: "Prescription Dispensing",
+                description: "Fast, accurate filling of your prescriptions with clear instructions and expert advice from our qualified pharmacists.",
                 delay: 0.1
               },
               {
-                title: "Health Consultations",
-                description: "Personal health advice from our experienced pharmacists.",
+                icon: MessageCircleHeart,
+                title: "Therapeutic Management and Counselling",
+                description: "Our pharmacists provide personalized guidance on medication therapy, helping you understand your treatment plan, potential side effects, and how to maximize therapeutic benefits while minimizing risks.",
+                delay: 0.2
+              },
+              {
+                icon: Stethoscope,
+                title: "Health Screenings",
+                description: "Regular blood pressure checks, blood glucose monitoring, and basic health assessments to help you stay on top of your health.",
                 delay: 0.3
               },
               {
+                icon: Truck,
+                title: "Home Delivery",
+                description: "Convenient delivery of medications to your doorstep, especially beneficial for elderly patients, those with chronic conditions, or busy individuals.",
+                delay: 0.4
+              },
+              {
+                icon: ShoppingBag,
                 title: "Health Products",
-                description: "Quality healthcare, wellness, and beauty products for all your needs.",
+                description: "Wide selection of vitamins, supplements, first aid supplies, and personal care items carefully chosen for quality and effectiveness.",
                 delay: 0.5
               },
             ].map((service, index) => (
@@ -46,6 +61,9 @@ const Index = () => {
                 className="bg-white rounded-xl p-8 border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1 animate-fade-up"
                 style={{ animationDelay: `${service.delay}s` }}
               >
+                <div className="w-12 h-12 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center mb-6">
+                  <service.icon className="h-6 w-6 text-pharmacy-600" />
+                </div>
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 <Link 
