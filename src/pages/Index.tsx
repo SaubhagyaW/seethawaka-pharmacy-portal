@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
-import { ArrowRight, CalendarCheck, MapPin, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -60,66 +60,26 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Contact Info Section */}
+      {/* Contact CTA Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-up">
-                <div className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-6">
-                  Visit Us Today
-                </div>
-                <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-6">
-                  We're Here to Help
-                </h2>
-                <p className="text-xl text-gray-600 mb-8">
-                  Visit our brand new pharmacy for personalized care or contact us for more information about our services.
-                </p>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="h-5 w-5 text-pharmacy-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-1">Address</h3>
-                      <p className="text-gray-600">61/E, Ihala Hanwella, Hanwella, Sri Lanka</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="h-5 w-5 text-pharmacy-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-1">Phone</h3>
-                      <p className="text-gray-600">+94 72 383 6007</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <CalendarCheck className="h-5 w-5 text-pharmacy-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-1">Hours</h3>
-                      <p className="text-gray-600">Monday - Sunday: 7:00 AM - 10:00 PM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="lg:h-[500px] animate-fade-up" style={{ animationDelay: '0.3s' }}>
-                <div className="h-full relative overflow-hidden rounded-2xl shadow-xl">
-                  <img 
-                    src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8" 
-                    alt="Pharmacy storefront" 
-                    className="w-full h-full object-cover image-fade-in"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-6 animate-fade-up">
+              Get In Touch
             </div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-6 animate-fade-up">
+              We're Here to Help
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 animate-fade-up max-w-3xl mx-auto">
+              Visit our brand new pharmacy for personalized care or contact us through our dedicated contact page for more information about our services.
+            </p>
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white font-medium transition-all hover:shadow-lg active:scale-[0.98] animate-fade-up"
+            >
+              Contact Us
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
