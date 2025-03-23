@@ -65,13 +65,7 @@ const Index = () => {
                   <service.icon className="h-6 w-6 text-pharmacy-600" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link 
-                  to="/about" 
-                  className="inline-flex items-center text-pharmacy-600 font-medium hover:text-pharmacy-700"
-                >
-                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+                <p className="text-gray-600">{service.description}</p>
               </div>
             ))}
           </div>
