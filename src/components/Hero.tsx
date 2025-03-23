@@ -22,13 +22,13 @@ const Hero = ({ className }: HeroProps) => {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
           <div className="max-w-xl animate-fade-up" style={{ animationDelay: '0.1s' }}>
             <div className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-6 animate-slide-in">
-              Your Trusted Health Partner
+              Your New Health Partner
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6">
               Quality Healthcare <span className="text-pharmacy-600">Made Accessible</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy provides expert care, quality medicines, and personalized health solutions to keep you and your family healthy.
+              Seethawaka Pharmacy is newly opened to provide expert care, quality medicines, and personalized health solutions to keep you and your family healthy.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link 

@@ -22,10 +22,10 @@ const About = () => {
               About Us
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-              Committed to Your Health Since <span className="text-pharmacy-600">2000</span>
+              Committed to Your Health <span className="text-pharmacy-600">Since 2023</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy has been serving the community with quality healthcare products and personalized service for over two decades.
+              Seethawaka Pharmacy is a newly opened healthcare destination, bringing fresh energy and modern healthcare solutions to our community.
             </p>
           </div>
         </div>
@@ -51,7 +51,7 @@ const About = () => {
                 Our Mission & Values
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-                We're dedicated to improving the health and wellbeing of our community through personalized care and quality products.
+                As a new establishment, we're dedicated to bringing innovative healthcare solutions with a personal touch to our community.
               </p>
               
               <div className="space-y-6">
@@ -73,8 +73,8 @@ const About = () => {
                   },
                   {
                     icon: History,
-                    title: "Our History",
-                    description: "Founded in 2000, we've grown from a small family pharmacy to a trusted healthcare provider in the community."
+                    title: "Our Beginning",
+                    description: "Founded in 2023, we're bringing fresh perspectives and modern healthcare solutions to serve you better."
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex gap-4">
@@ -109,7 +109,7 @@ const About = () => {
             <PharmacistCard 
               name="Dr. Amara Silva"
               title="Head Pharmacist"
-              description="With over 15 years of experience, Dr. Silva leads our team with expertise in medication management and patient care."
+              description="With extensive training and education, Dr. Silva leads our team with expertise in medication management and patient care."
               imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.1}
             />
@@ -117,7 +117,7 @@ const About = () => {
             <PharmacistCard 
               name="Nadun Perera"
               title="Owner"
-              description="As the founder of Seethawaka Pharmacy, Mr. Perera has built our reputation on quality service and community care since 2000."
+              description="As the founder of Seethawaka Pharmacy, Mr. Perera brings his vision of modern, accessible healthcare to our community."
               imageUrl="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.3}
             />
