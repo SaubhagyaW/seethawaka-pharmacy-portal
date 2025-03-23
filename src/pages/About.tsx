@@ -22,10 +22,10 @@ const About = () => {
               About Us
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-              Committed to Your Health <span className="text-pharmacy-600">& Wellbeing</span>
+              Your Health, <span className="text-pharmacy-600">Our Priority</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy is a brand new healthcare destination, bringing fresh energy and modern healthcare solutions to our community.
+              Seethawaka Pharmacy was established with a vision to provide exceptional pharmaceutical care to our community. As a newly opened pharmacy, we bring fresh energy and modern approaches to healthcare while maintaining the personalized attention that only a neighborhood pharmacy can offer.
             </p>
           </div>
         </div>
