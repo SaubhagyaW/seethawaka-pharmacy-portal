@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Building, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Logo from "./Logo";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -44,7 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
             to="/" 
             className="flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Building className="h-7 w-7 text-pharmacy-600" />
+            <Logo size="md" />
             <span className="text-xl font-display font-medium tracking-tight">
               Seethawaka Pharmacy
             </span>
@@ -114,7 +115,7 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Building className="h-6 w-6 text-pharmacy-600" />
+                <Logo size="sm" />
                 <span className="text-lg font-display font-medium">
                   Seethawaka Pharmacy
                 </span>

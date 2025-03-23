@@ -53,7 +53,7 @@ const Features = ({ className }: FeaturesProps) => {
               className="bg-gray-50 rounded-xl p-8 border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1 animate-fade-up"
               style={{ animationDelay: `${feature.delay}s` }}
             >
-              <div className="w-12 h-12 bg-pharmacy-100 rounded-lg flex items-center justify-center mb-6">
+              <div className="w-12 h-12 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center mb-6">
                 <feature.icon className="h-6 w-6 text-pharmacy-600" />
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>

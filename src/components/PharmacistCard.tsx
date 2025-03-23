@@ -35,7 +35,7 @@ const PharmacistCard = ({
         />
       </div>
       <div className="p-6">
-        <div className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-3">
+        <div className="inline-block rounded-full bg-gradient-to-r from-pharmacy-100 to-medical-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-3">
           {title}
         </div>
         <h3 className="text-xl font-semibold mb-2">{name}</h3>
