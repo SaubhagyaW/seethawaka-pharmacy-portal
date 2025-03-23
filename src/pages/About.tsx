@@ -36,7 +36,7 @@ const About = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 lg:h-[500px] animate-fade-up" style={{ animationDelay: '0.3s' }}>
-              <div className="h-full relative overflow-hidden rounded-2xl shadow-xl">
+              <div className="h-full relative overflow-hidden rounded-2xl">
                 <img 
                   src="/lovable-uploads/8ef0b3d5-e017-42d4-a769-638b75773b86.png" 
                   alt="Mission, Vision, and Values" 
