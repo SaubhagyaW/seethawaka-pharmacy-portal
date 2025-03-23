@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -37,9 +38,12 @@ const Hero = ({ className }: HeroProps) => {
                 About Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <button className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white border border-gray-300 text-gray-700 font-medium transition-all hover:bg-gray-50 active:scale-[0.98] shadow-sm">
+              <Link 
+                to="/contact" 
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white border border-gray-300 text-gray-700 font-medium transition-all hover:bg-gray-50 active:scale-[0.98] shadow-sm"
+              >
                 Contact Us
-              </button>
+              </Link>
             </div>
           </div>
           <div className="relative lg:h-[500px] animate-fade-up" style={{ animationDelay: '0.3s' }}>
