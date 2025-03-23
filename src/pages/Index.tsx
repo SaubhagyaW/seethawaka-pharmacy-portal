@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
@@ -83,7 +82,7 @@ const Index = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold mb-1">Address</h3>
-                      <p className="text-gray-600">123 Main Street, Avissawella, Sri Lanka</p>
+                      <p className="text-gray-600">61/E, Ihala Hanwella, Hanwella, Sri Lanka</p>
                     </div>
                   </div>
                   
@@ -93,7 +92,7 @@ const Index = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold mb-1">Phone</h3>
-                      <p className="text-gray-600">+94 11 234 5678</p>
+                      <p className="text-gray-600">+94 72 383 6007</p>
                     </div>
                   </div>
                   
@@ -103,8 +102,7 @@ const Index = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold mb-1">Hours</h3>
-                      <p className="text-gray-600">Monday - Saturday: 8:00 AM - 8:00 PM</p>
-                      <p className="text-gray-600">Sunday: 9:00 AM - 5:00 PM</p>
+                      <p className="text-gray-600">Monday - Sunday: 7:00 AM - 10:00 PM</p>
                     </div>
                   </div>
                 </div>
