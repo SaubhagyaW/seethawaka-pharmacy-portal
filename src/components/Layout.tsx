@@ -24,6 +24,8 @@ const Layout = ({ children }: LayoutProps) => {
   }, []);
 
   useEffect(() => {
+    // Scroll to top when location changes
+    window.scrollTo(0, 0);
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
