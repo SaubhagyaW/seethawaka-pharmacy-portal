@@ -38,7 +38,7 @@ const About = () => {
             <div className="order-2 lg:order-1 lg:h-[500px] animate-fade-up" style={{ animationDelay: '0.3s' }}>
               <div className="h-full relative overflow-hidden rounded-2xl shadow-xl">
                 <img 
-                  src="/lovable-uploads/297ca11c-fe1d-44d0-bfd6-6c01f3cb8360.png" 
+                  src="/lovable-uploads/8ef0b3d5-e017-42d4-a769-638b75773b86.png" 
                   alt="Mission, Vision, and Values" 
                   className="w-full h-full object-contain bg-white p-6"
                   loading="lazy"
