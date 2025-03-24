@@ -1,5 +1,5 @@
-
 import Layout from "@/components/Layout";
+import SEO from "@/components/SEO";
 import { CalendarCheck, Mail, MapPin, Phone, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,6 +29,12 @@ const Contact = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Contact Us" 
+        description="Get in touch with Seethawaka Pharmacy. Visit our location in Hanwella or send us a message for any inquiries about our pharmaceutical services."
+        canonicalUrl="https://seethawakapharmacy.com/contact"
+      />
+      
       <section className="py-16 md:py-24 bg-pharmacy-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-up">

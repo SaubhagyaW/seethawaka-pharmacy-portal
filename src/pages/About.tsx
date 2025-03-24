@@ -1,11 +1,17 @@
-
 import Layout from "@/components/Layout";
 import PharmacistCard from "@/components/PharmacistCard";
+import SEO from "@/components/SEO";
 import { Award, Users, History, Target } from "lucide-react";
 
 const About = () => {
   return (
     <Layout>
+      <SEO 
+        title="About Us" 
+        description="Learn about Seethawaka Pharmacy, our mission, values and our dedicated team of healthcare professionals committed to serving the Hanwella community."
+        canonicalUrl="https://seethawakapharmacy.com/about"
+      />
+      
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 bg-pharmacy-50 overflow-hidden">
         {/* Background pattern */}

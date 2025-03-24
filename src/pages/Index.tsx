@@ -1,13 +1,18 @@
-
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
+import SEO from "@/components/SEO";
 import { ArrowRight, Pill, MessageCircleHeart, Stethoscope, Truck, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
     <Layout>
+      <SEO 
+        title="Your Health, Our Priority" 
+        description="Seethawaka Pharmacy provides quality healthcare products and personalized pharmaceutical services. Visit our new pharmacy in Hanwella for all your medication needs."
+        canonicalUrl="https://seethawakapharmacy.com/"
+      />
       <Hero />
       <Features />
       
