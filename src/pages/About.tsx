@@ -122,7 +122,7 @@ const About = () => {
             />
             
             <PharmacistCard 
-              name="Ms. Charmy"
+              name="Ms. Charmy Siriwardena"
               title="Head Pharmacist"
               description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
               imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"

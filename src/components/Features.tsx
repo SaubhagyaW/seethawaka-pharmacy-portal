@@ -27,12 +27,6 @@ const features = [
     delay: 0.3
   },
   {
-    icon: PiggyBank,
-    title: "Competitive Pricing",
-    description: "We believe quality healthcare should be accessible to all. Our competitive pricing and special offers help you save on essential medications without compromising on quality.",
-    delay: 0.4
-  },
-  {
     icon: Clock,
     title: "Convenient Services",
     description: "Enjoy the convenience of our quick prescription refills, medication delivery service, and extended operating hours designed to accommodate your busy schedule.",
