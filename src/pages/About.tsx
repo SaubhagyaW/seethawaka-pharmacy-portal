@@ -18,7 +18,7 @@ const About = () => {
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 25px 25px, #0ca1ea 2px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 25px 25px, #00A99D 2px, transparent 0)`,
             backgroundSize: "50px 50px"
           }}></div>
         </div>
@@ -54,7 +54,7 @@ const About = () => {
             </div>
             
             <div className="order-1 lg:order-2 animate-fade-up">
-              <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-6">
+              <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-6 text-pharmacy-500">
                 Our Mission & Values
               </h2>
               <p className="text-xl text-gray-600 mb-8">
@@ -85,11 +85,11 @@ const About = () => {
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-5 w-5 text-pharmacy-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                      <h3 className="text-lg font-semibold mb-1 text-pharmacy-700">{item.title}</h3>
                       <p className="text-gray-600">{item.description}</p>
                     </div>
                   </div>
@@ -101,10 +101,10 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      <section className="py-16 md:py-24 bg-pharmacy-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-up">
-            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4 text-pharmacy-500">
               Meet Our Team
             </h2>
             <p className="text-xl text-gray-600">
@@ -119,6 +119,7 @@ const About = () => {
               description="As the founder of Seethawaka Pharmacy, Mr. Wickramaarachchi brings his vision of modern, accessible healthcare to our community."
               imageUrl="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.1}
+              className="border-pharmacy-100 hover:border-pharmacy-200"
             />
             
             <PharmacistCard 
@@ -127,6 +128,7 @@ const About = () => {
               description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
               imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.2}
+              className="border-pharmacy-100 hover:border-pharmacy-200"
             />
             
             <PharmacistCard 
@@ -135,6 +137,7 @@ const About = () => {
               description="Dedicated to patient education and medication safety, Mr. Lahiru ensures our customers receive the best pharmaceutical care."
               imageUrl="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.3}
+              className="border-pharmacy-100 hover:border-pharmacy-200"
             />
           </div>
         </div>
