@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 interface LogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  showText?: boolean;
 }
 
-const Logo = ({ className, size = 'md' }: LogoProps) => {
+const Logo = ({ className, size = 'md', showText = false }: LogoProps) => {
   const sizeClasses = {
     sm: "h-8 w-auto",
     md: "h-10 w-auto",
@@ -17,7 +18,7 @@ const Logo = ({ className, size = 'md' }: LogoProps) => {
   return (
     <div className={cn("relative", className)}>
       <img 
-        src="/lovable-uploads/6b788371-4099-49cc-a73e-1dbd0e5aa5ca.png" 
+        src="/lovable-uploads/9d6229f5-ead6-45ba-9ef9-f6abc262058b.png" 
         alt="Seethawaka Pharmacy Logo" 
         className={cn("object-contain", sizeClasses[size])}
       />

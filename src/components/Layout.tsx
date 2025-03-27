@@ -48,7 +48,8 @@ const Layout = ({ children }: LayoutProps) => {
             to="/" 
             className="flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Logo size="lg" />
+            <Logo size="md" />
+            <span className="font-bold text-xl text-pharmacy-500 font-pharmacy">Seethawaka Pharmacy</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -116,6 +117,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Logo size="md" />
+                <span className="font-bold text-lg text-pharmacy-500 font-pharmacy">Seethawaka Pharmacy</span>
               </div>
               <p className="text-muted-foreground mb-4 max-w-md">
                 Providing quality healthcare products and services to our community with care and precision.
