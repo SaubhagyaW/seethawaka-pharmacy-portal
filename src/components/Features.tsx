@@ -45,10 +45,10 @@ const Features = ({ className }: FeaturesProps) => {
     <section className={cn("py-16 md:py-24 bg-white", className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-up">
-          <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-pharmacy font-bold tracking-tight mb-4 text-pharmacy-500">
             Why Choose Seethawaka Pharmacy
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 font-pharmacy">
             We're committed to providing exceptional pharmaceutical care and services.
           </p>
         </div>
@@ -62,9 +62,9 @@ const Features = ({ className }: FeaturesProps) => {
             >
               <CardContent className="p-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-pharmacy-100 to-medical-100 rounded-lg flex items-center justify-center mb-6">
-                  <feature.icon className="h-6 w-6 text-pharmacy-600" />
+                  <feature.icon className="h-6 w-6 text-pharmacy-500" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 font-pharmacy text-pharmacy-600">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </CardContent>
             </Card>

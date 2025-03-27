@@ -17,7 +17,7 @@ const Logo = ({ className, size = 'md' }: LogoProps) => {
   return (
     <div className={cn("relative", className)}>
       <img 
-        src="/lovable-uploads/c71a6974-287f-4ed9-b868-cb8c2ac9a1cd.png" 
+        src="/lovable-uploads/6b788371-4099-49cc-a73e-1dbd0e5aa5ca.png" 
         alt="Seethawaka Pharmacy Logo" 
         className={cn("object-contain", sizeClasses[size])}
       />

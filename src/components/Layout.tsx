@@ -49,9 +49,6 @@ const Layout = ({ children }: LayoutProps) => {
             className="flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <Logo size="lg" />
-            <span className="pharmacy-title text-xl">
-              Seethawaka Pharmacy
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -61,9 +58,9 @@ const Layout = ({ children }: LayoutProps) => {
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "text-base font-medium transition-colors hover:text-pharmacy-600 relative",
+                  "text-base font-medium transition-colors hover:text-pharmacy-500 relative font-pharmacy",
                   location.pathname === link.path
-                    ? "text-pharmacy-600 after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-pharmacy-600"
+                    ? "text-pharmacy-500 after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-pharmacy-500"
                     : "text-foreground"
                 )}
               >
@@ -95,9 +92,9 @@ const Layout = ({ children }: LayoutProps) => {
                   key={link.path}
                   to={link.path}
                   className={cn(
-                    "text-base font-medium py-2 px-4 rounded-md transition-colors",
+                    "text-base font-medium py-2 px-4 rounded-md transition-colors font-pharmacy",
                     location.pathname === link.path
-                      ? "bg-pharmacy-100 text-pharmacy-600"
+                      ? "bg-pharmacy-100 text-pharmacy-500"
                       : "text-foreground hover:bg-gray-100"
                   )}
                 >
@@ -119,16 +116,13 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Logo size="md" />
-                <span className="pharmacy-title text-lg">
-                  Seethawaka Pharmacy
-                </span>
               </div>
               <p className="text-muted-foreground mb-4 max-w-md">
                 Providing quality healthcare products and services to our community with care and precision.
               </p>
             </div>
             <div className="md:text-right">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4 font-pharmacy">
                 Quick Links
               </h3>
               <div className="flex flex-col space-y-2 md:items-end">
@@ -136,7 +130,7 @@ const Layout = ({ children }: LayoutProps) => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className="text-gray-600 hover:text-pharmacy-600 transition-colors"
+                    className="text-gray-600 hover:text-pharmacy-500 transition-colors font-pharmacy"
                   >
                     {link.name}
                   </Link>

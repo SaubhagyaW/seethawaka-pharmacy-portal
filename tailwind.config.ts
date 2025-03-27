@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'system-ui', 'sans-serif'],
 				display: ['SF Pro Display', 'Inter', 'sans-serif'],
-				pharmacy: ['Montserrat', 'sans-serif']
+				pharmacy: ['Roboto', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -58,30 +59,30 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				pharmacy: {
-					50: '#eefbf3',
-					100: '#d7f4e2',
-					200: '#b2e9ca',
-					300: '#83d7ac',
-					400: '#4dbf89',
-					500: '#33a871',
-					600: '#208654',
-					700: '#1c6b45',
-					800: '#1b5539',
-					900: '#184631',
-					950: '#0d2a1d',
+					50: '#e6f7f6',
+					100: '#ccf0ed',
+					200: '#99e0db',
+					300: '#66d1c9',
+					400: '#33c1b6',
+					500: '#00A99D', /* Teal from logo */
+					600: '#00877e',
+					700: '#00655e',
+					800: '#00443f',
+					900: '#00221f',
+					950: '#00110f',
 				},
 				medical: {
-					50: '#ebf8ff',
-					100: '#d6f0ff',
-					200: '#b3e4ff',
-					300: '#80d1ff',
-					400: '#4db8ff',
-					500: '#1a9bff',
-					600: '#007deb',
-					700: '#0063cc',
-					800: '#0052a6',
-					900: '#064686',
-					950: '#042a56',
+					50: '#fef8eb',
+					100: '#fdf1d7',
+					200: '#fbe3af',
+					300: '#f9d587',
+					400: '#f7c65f',
+					500: '#F5A623', /* Orange/amber from logo */
+					600: '#c4851c',
+					700: '#936415',
+					800: '#62420e',
+					900: '#312107',
+					950: '#191104',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -130,9 +131,9 @@ export default {
 			},
 			gradientColorStops: {
 				'pharmacy-gradient': {
-					start: '#4dbf89',
-					middle: '#5cc5e3',
-					end: '#4db8ff',
+					start: '#00A99D',
+					middle: '#7ECDCE',
+					end: '#F5A623',
 				},
 			}
 		}
