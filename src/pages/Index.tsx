@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
+import LocationMap from "@/components/LocationMap";
 import SEO from "@/components/SEO";
 import { ArrowRight, Pill, MessageCircleHeart, Stethoscope, Truck, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -76,6 +77,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Location Map Section */}
+      <LocationMap />
       
       {/* Contact CTA Section */}
       <section className="py-16 md:py-24 bg-white">
