@@ -1,6 +1,6 @@
+
 import Layout from "@/components/Layout";
 import PharmacistCard from "@/components/PharmacistCard";
-import LocationMap from "@/components/LocationMap";
 import SEO from "@/components/SEO";
 import { Award, Users, History, Target } from "lucide-react";
 
@@ -142,9 +142,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      {/* Location Map Section */}
-      <LocationMap />
     </Layout>
   );
 };
