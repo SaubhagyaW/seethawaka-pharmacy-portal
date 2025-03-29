@@ -30,7 +30,7 @@ const PharmacistCard = ({
         <img 
           src={imageUrl} 
           alt={name} 
-          className="w-full h-full object-cover object-center transition-transform hover:scale-105 duration-500 image-fade-in"
+          className="w-full h-full object-cover object-top transition-transform hover:scale-105 duration-500 image-fade-in"
           loading="lazy"
         />
       </div>
