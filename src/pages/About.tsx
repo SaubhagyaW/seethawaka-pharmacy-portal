@@ -112,7 +112,7 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <PharmacistCard 
               name="Mr. Gihan Wickramaarachchi"
               title="Owner"
@@ -128,15 +128,6 @@ const About = () => {
               description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
               imageUrl="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
               delay={0.2}
-              className="border-pharmacy-100 hover:border-pharmacy-200"
-            />
-            
-            <PharmacistCard 
-              name="Mr. Lahiru"
-              title="Pharmacist"
-              description="Dedicated to patient education and medication safety, Mr. Lahiru ensures our customers receive the best pharmaceutical care."
-              imageUrl="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
-              delay={0.3}
               className="border-pharmacy-100 hover:border-pharmacy-200"
             />
           </div>
