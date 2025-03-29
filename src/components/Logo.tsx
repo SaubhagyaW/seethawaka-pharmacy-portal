@@ -1,6 +1,9 @@
 
 import { cn } from "@/lib/utils";
 
+// Import logo image
+import logoImage from '/lovable-uploads/9d6229f5-ead6-45ba-9ef9-f6abc262058b.png';
+
 interface LogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -18,7 +21,7 @@ const Logo = ({ className, size = 'md', showText = false }: LogoProps) => {
   return (
     <div className={cn("relative", className)}>
       <img 
-        src="/lovable-uploads/9d6229f5-ead6-45ba-9ef9-f6abc262058b.png" 
+        src={logoImage}
         alt="Seethawaka Pharmacy Logo" 
         className={cn("object-contain", sizeClasses[size])}
       />

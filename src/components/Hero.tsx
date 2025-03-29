@@ -3,6 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
+// Import hero image
+import heroImage from '/lovable-uploads/c3b27540-227b-4533-b7c4-307b193b5618.png';
+
 interface HeroProps {
   className?: string;
 }
@@ -50,7 +53,7 @@ const Hero = ({ className }: HeroProps) => {
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-pharmacy-100 to-medical-100 transform rotate-3 scale-[0.96] animate-fade-in" style={{ animationDelay: '0.6s' }}></div>
             <div className="relative overflow-hidden rounded-2xl shadow-xl h-full">
               <img 
-                src="/lovable-uploads/c3b27540-227b-4533-b7c4-307b193b5618.png" 
+                src={heroImage}
                 alt="Pharmacist in white coat with stethoscope giving thumbs up" 
                 className="w-full h-full object-cover"
                 loading="lazy"
