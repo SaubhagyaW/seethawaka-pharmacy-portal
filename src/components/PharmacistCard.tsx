@@ -1,6 +1,5 @@
 
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface PharmacistCardProps {
   name: string;
@@ -19,15 +18,6 @@ const PharmacistCard = ({
   delay = 0,
   className
 }: PharmacistCardProps) => {
-  // Get initials for avatar fallback
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
-      .toUpperCase();
-  };
-
   return (
     <div 
       className={cn(
@@ -48,15 +38,7 @@ const PharmacistCard = ({
         <div className="inline-block rounded-full bg-gradient-to-r from-pharmacy-100 to-medical-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-3">
           {title}
         </div>
-        <div className="flex items-center gap-3 mb-2">
-          <Avatar className="h-8 w-8 border border-pharmacy-100">
-            <AvatarImage src={imageUrl} alt={name} />
-            <AvatarFallback className="bg-pharmacy-100 text-pharmacy-800">
-              {getInitials(name)}
-            </AvatarFallback>
-          </Avatar>
-          <h3 className="text-xl font-semibold">{name}</h3>
-        </div>
+        <h3 className="text-xl font-semibold mb-2">{name}</h3>
         <p className="text-gray-600">{description}</p>
       </div>
     </div>
