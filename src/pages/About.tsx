@@ -5,8 +5,8 @@ import SEO from "@/components/SEO";
 import { Award, Users, History, Target } from "lucide-react";
 
 // Import local images
-import pharmacist1Img from '/images/pharmacist1.png';
-import pharmacist2Img from '/images/pharmacist2.png';
+import pharmacist1Img from '/images/pharmacist1.jpeg';
+import pharmacist2Img from '/images/pharmacist2.jpeg'  ;
 
 const About = () => {
   return (
@@ -118,9 +118,9 @@ const About = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <PharmacistCard 
-              name="Mr. Gihan Wickramaarachchi"
-              title="Owner"
-              description="As the founder of Seethawaka Pharmacy, Mr. Wickramaarachchi brings his vision of modern, accessible healthcare to our community."
+              name="Mr. Lahiru Bandara"
+              title="Pharmacist"
+              description="An experienced pharmacist with extensive clinical and hospital background specializing in patient safety and medication management, dedicated to building strong patient relationships through compassionate pharmaceutical care and comprehensive counseling."
               imageUrl={pharmacist1Img}
               delay={0.1}
               className="border-pharmacy-100 hover:border-pharmacy-200"
@@ -128,8 +128,8 @@ const About = () => {
             
             <PharmacistCard 
               name="Ms. Charmy Siriwardena"
-              title="Head Pharmacist"
-              description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
+              title="Pharmacist"
+              description="With extensive training and education, Ms. Charmy Siriwardena leads our team with expertise in medication management and patient care."
               imageUrl={pharmacist2Img}
               delay={0.2}
               className="border-pharmacy-100 hover:border-pharmacy-200"
