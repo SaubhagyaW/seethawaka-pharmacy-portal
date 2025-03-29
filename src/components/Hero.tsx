@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 // Import hero image
-import heroImage from '/lovable-uploads/c3b27540-227b-4533-b7c4-307b193b5618.png';
+import heroImage from '/images/hero_section.png';
 
 interface HeroProps {
   className?: string;

@@ -12,7 +12,7 @@ const SEO = ({
   title, 
   description = "Seethawaka Pharmacy offers quality healthcare products and personalized pharmaceutical services in Hanwella, Sri Lanka.",
   canonicalUrl = "",
-  ogImageUrl = "/lovable-uploads/9d6229f5-ead6-45ba-9ef9-f6abc262058b.png"
+  ogImageUrl = "/images/logo.png"
 }: SEOProps) => {
   const siteTitle = "Seethawaka Pharmacy";
   const fullTitle = `${title} | ${siteTitle}`;

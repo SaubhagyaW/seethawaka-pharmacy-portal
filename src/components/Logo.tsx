@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 
 // Import logo image
-import logoImage from '/lovable-uploads/9d6229f5-ead6-45ba-9ef9-f6abc262058b.png';
+import logoImage from '/images/logo.png';
 
 interface LogoProps {
   className?: string;

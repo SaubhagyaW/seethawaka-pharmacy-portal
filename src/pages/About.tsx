@@ -5,8 +5,8 @@ import SEO from "@/components/SEO";
 import { Award, Users, History, Target } from "lucide-react";
 
 // Import local images
-import ownerImage from '/lovable-uploads/6b788371-4099-49cc-a73e-1dbd0e5aa5ca.png';
-import pharmacistImage from '/lovable-uploads/c71a6974-287f-4ed9-b868-cb8c2ac9a1cd.png';
+import pharmacist1Img from '/images/pharmacist1.png';
+import pharmacist2Img from '/images/pharmacist2.png';
 
 const About = () => {
   return (
@@ -49,7 +49,7 @@ const About = () => {
             <div className="order-2 lg:order-1 lg:h-[500px] animate-fade-up" style={{ animationDelay: '0.3s' }}>
               <div className="h-full relative overflow-hidden rounded-2xl">
                 <img 
-                  src="/lovable-uploads/8ef0b3d5-e017-42d4-a769-638b75773b86.png" 
+                  src="/images/mission_values.png" 
                   alt="Mission, Vision, and Values" 
                   className="w-full h-full object-contain bg-white p-6"
                   loading="lazy"
@@ -121,7 +121,7 @@ const About = () => {
               name="Mr. Gihan Wickramaarachchi"
               title="Owner"
               description="As the founder of Seethawaka Pharmacy, Mr. Wickramaarachchi brings his vision of modern, accessible healthcare to our community."
-              imageUrl={ownerImage}
+              imageUrl={pharmacist1Img}
               delay={0.1}
               className="border-pharmacy-100 hover:border-pharmacy-200"
             />
@@ -130,7 +130,7 @@ const About = () => {
               name="Ms. Charmy Siriwardena"
               title="Head Pharmacist"
               description="With extensive training and education, our Head Pharmacist leads our team with expertise in medication management and patient care."
-              imageUrl={pharmacistImage}
+              imageUrl={pharmacist2Img}
               delay={0.2}
               className="border-pharmacy-100 hover:border-pharmacy-200"
             />
