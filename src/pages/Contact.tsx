@@ -32,11 +32,6 @@ const Contact = () => {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.');
-    if (!isLocal) {
-      // In production, let Netlify handle the native POST so it records the submission
-      return;
-    }
     e.preventDefault();
     try {
       const form = e.currentTarget;
@@ -158,7 +153,6 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
-                action="/?no-cache=1"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 acceptCharset="UTF-8"
