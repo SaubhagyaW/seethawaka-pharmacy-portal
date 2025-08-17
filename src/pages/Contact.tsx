@@ -32,12 +32,11 @@ const Contact = () => {
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // For production (Netlify), let the form submit naturally - no JS interference
+    // For production (Netlify), completely disable JS form handling
     const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
     
     if (isProduction) {
-      // Don't prevent default - let Netlify handle the form submission
-      toast.success("Sending message...", { description: "Please wait while we process your submission." });
+      // Don't prevent default and don't show toast - let form submit natively
       return;
     }
 
@@ -126,7 +125,7 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
-                action="/contact?submitted=true"
+                action="/"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
