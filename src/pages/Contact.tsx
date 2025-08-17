@@ -90,10 +90,17 @@ const Contact = () => {
           const formElement = e.target as HTMLFormElement;
           const formDataNetlify = new FormData(formElement);
 
+          // Create separate params for Netlify with current React state values
+          const netlifyParams = new URLSearchParams();
+          netlifyParams.append('form-name', 'contact');
+          netlifyParams.append('name', formData.name);
+          netlifyParams.append('email', formData.email);
+          netlifyParams.append('message', formData.message);
+
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(formDataNetlify as any).toString(),
+            body: netlifyParams.toString(),
           });
 
           if (response.ok) {
