@@ -89,39 +89,21 @@ const Contact = () => {
           // Make sure to prevent default first
           e.preventDefault();
 
-          // Submit to Netlify Forms as fallback
-          const formElement = e.target as HTMLFormElement;
+          // Use React state data directly instead of FormData
+        const netlifyData = {
+          'form-name': 'contact',
+          'bot-field': '',
+          'name': formData.name,
+          'email': formData.email,
+          'message': formData.message,
+        };
 
-          // Debug: Check the form element
-          console.log('Form element:', formElement);
-          console.log('Form elements:', formElement.elements);
-
-          const formData = new FormData(formElement);
-
-          // Debug: Check what FormData captured
-          console.log('FormData contents:');
-          for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-          }
-
-          // Check if FormData is empty
-          if (formData.entries().next().done) {
-            console.log('FormData is completely empty!');
-          }
-
-          // Convert to plain object
-          const dataObj: Record<string, string> = {};
-          formData.forEach((value, key) => {
-            dataObj[key] = value.toString();
-          });
-
-          console.log('Data object:', dataObj);
-          console.log('Final body:', new URLSearchParams(dataObj).toString());
+          console.log('Netlify submission data:', netlifyData);
 
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(dataObj).toString(),
+          body: new URLSearchParams(netlifyData).toString(),
           });
 
           if (response.ok) {
