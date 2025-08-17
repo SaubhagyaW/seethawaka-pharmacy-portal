@@ -134,32 +134,46 @@ const Contact = () => {
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
-                {/* Simple, foolproof HTML form */}
+                {/* Netlify form - simplified and matching test-form.html structure */}
                 <form
                     name="contact"
                     method="POST"
-                    action="/contact?submitted=true"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    onSubmit={handleSubmit}
+                    onSubmit={(e) => {
+                      console.log("Form submission started");
+                      setIsSubmitting(true);
+
+                      // For development, show success message
+                      if (window.location.hostname.includes('localhost') || window.location.hostname.startsWith('127.')) {
+                        e.preventDefault();
+                        setTimeout(() => {
+                          toast.success("Message captured locally.", {
+                            description: "Deploy to Netlify to send actual emails.",
+                          });
+                          setIsSubmitting(false);
+                          e.target.reset();
+                        }, 1000);
+                        return;
+                      }
+
+                      // For production, let Netlify handle it naturally
+                      // Don't prevent default, don't add action URL
+                    }}
                 >
                   {/* Hidden fields for Netlify */}
-                  <input type="hidden" name="form-name" value="contact"/>
-                  <div style={{display: 'none'}}>
+                  <input type="hidden" name="form-name" value="contact" />
+
+                  {/* Honeypot field */}
+                  <p style={{display: 'none'}}>
                     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                  </div>
+                  </p>
 
                   {/* Name Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
+                  <div className="mb-6">
                     <label
                         htmlFor="name"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
+                        className="block text-sm font-medium text-gray-700 mb-2"
                     >
                       Name *
                     </label>
@@ -170,31 +184,15 @@ const Contact = () => {
                         placeholder="Enter your full name"
                         required
                         disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          height: '2.5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem'
-                        }}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
 
                   {/* Email Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
+                  <div className="mb-6">
                     <label
                         htmlFor="email"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
+                        className="block text-sm font-medium text-gray-700 mb-2"
                     >
                       Email *
                     </label>
@@ -205,31 +203,15 @@ const Contact = () => {
                         placeholder="your.email@example.com"
                         required
                         disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          height: '2.5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem'
-                        }}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
 
                   {/* Message Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
+                  <div className="mb-6">
                     <label
                         htmlFor="message"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
+                        className="block text-sm font-medium text-gray-700 mb-2"
                     >
                       Message *
                     </label>
@@ -240,18 +222,7 @@ const Contact = () => {
                         rows={5}
                         required
                         disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          minHeight: '5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem',
-                          resize: 'none'
-                        }}
+                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                     />
                   </div>
 
@@ -259,23 +230,10 @@ const Contact = () => {
                   <button
                       type="submit"
                       disabled={isSubmitting}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '100%',
-                        height: '2.5rem',
-                        borderRadius: '0.375rem',
-                        background: 'linear-gradient(to right, #00A99D, #F5A623)',
-                        color: 'white',
-                        fontWeight: '500',
-                        border: 'none',
-                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                        opacity: isSubmitting ? 0.5 : 1
-                      }}
+                      className="inline-flex items-center justify-center w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white font-medium transition-all hover:shadow-lg active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
-                    <SendIcon style={{marginLeft: '0.5rem', width: '1rem', height: '1rem'}} />
+                    <SendIcon className="ml-2 h-4 w-4" />
                   </button>
                 </form>
               </div>
