@@ -10,6 +10,12 @@
   to = "/index.html"
   status = 200
 
+# Specific redirect for contact form submissions
+[[redirects]]
+  from = "/contact"
+  to = "/index.html"
+  status = 200
+
 # Common security headers
 [[headers]]
   for = "/*"

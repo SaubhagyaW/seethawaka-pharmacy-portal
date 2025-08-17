@@ -31,50 +31,20 @@ const Contact = () => {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // In production (on Netlify), allow native form submission so it's recorded
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // For production (Netlify), let the form submit naturally - no JS interference
     const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
     
     if (isProduction) {
-      // Let the form submit naturally to Netlify - this will record in dashboard
+      // Don't prevent default - let Netlify handle the form submission
       toast.success("Sending message...", { description: "Please wait while we process your submission." });
       return;
     }
 
-    // For local development, use AJAX
+    // For local development only, prevent default and show a message
     e.preventDefault();
-    try {
-      const form = e.currentTarget;
-      const formDataObj = new FormData(form);
-      
-      const payload = new URLSearchParams({
-        'form-name': 'contact',
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        'bot-field': (formDataObj.get('bot-field') as string) || ''
-      });
-
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json'
-        },
-        body: payload.toString(),
-      });
-
-      if (!res.ok) {
-        toast.success("Message captured locally.", { description: "Deploy to Netlify to see form submissions recorded." });
-      } else {
-        toast.success("Thank you for your message! We'll get back to you soon.", { description: 'Your message has been sent successfully.' });
-      }
-
-      setFormData({ name: '', email: '', message: '' });
-    } catch (err) {
-      console.error('Form submission error:', err);
-      toast.error('Failed to send message.', { description: 'Please try again or contact us by phone/email.' });
-    }
+    toast.success("Message captured locally.", { description: "Deploy to Netlify to see form submissions recorded." });
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
@@ -156,10 +126,9 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
-                action="/?no-cache=1"
+                action="/contact?submitted=true"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
-                acceptCharset="UTF-8"
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
