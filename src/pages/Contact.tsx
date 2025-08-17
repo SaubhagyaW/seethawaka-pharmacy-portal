@@ -86,12 +86,9 @@ const Contact = () => {
         const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
         if (isProduction) {
-          // Create form data manually to ensure all fields are included
-          const formDataNetlify = new FormData();
-          formDataNetlify.append('form-name', 'contact');
-          formDataNetlify.append('name', formData.name);
-          formDataNetlify.append('email', formData.email);
-          formDataNetlify.append('message', formData.message);
+          // Submit to Netlify Forms as fallback
+          const formElement = e.target as HTMLFormElement;
+          const formDataNetlify = new FormData(formElement);
 
           const response = await fetch('/', {
             method: 'POST',
