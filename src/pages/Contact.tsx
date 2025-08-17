@@ -1,40 +1,19 @@
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
-import {CalendarCheck, Mail, MapPin, Phone, SendIcon} from "lucide-react";
-import {useEffect, useState} from "react";
+import {CalendarCheck, Mail, MapPin, Phone} from "lucide-react";
+import {useEffect} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("submitted") === "true") {
       toast.success("Thank you for your message! We'll get back to you soon.", {
-        description: "Your message has been sent successfully to info@seethawakapharmacy.com",
+        description: "Your message has been sent successfully.",
       });
-      // Clean up the URL
       window.history.replaceState({}, "", "/contact");
     }
   }, []);
-
-  // CRITICAL: Use ref to handle form submission without React interference
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    setIsSubmitting(true);
-
-    // Only prevent default in development
-    if (window.location.hostname.includes('localhost') || window.location.hostname.startsWith('127.')) {
-      e.preventDefault();
-      setTimeout(() => {
-        toast.success("Message captured locally.", {
-          description: "Deploy to Netlify to send actual emails.",
-        });
-        setIsSubmitting(false);
-        (e.target as HTMLFormElement).reset();
-      }, 1000);
-    }
-    // In production, do NOT prevent default - let Netlify handle it naturally
-  };
 
   return (
       <Layout>
@@ -109,82 +88,38 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Contact Form - EXACTLY matching the working test-form.html */}
+              {/* Contact Form - PURE HTML, NO REACT INTERFERENCE */}
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
-                {/* CRITICAL: This form must match test-form.html exactly */}
-                <form
-                    name="contact"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    onSubmit={handleSubmit}
-                >
-                  {/* Hidden form-name field */}
-                  <input type="hidden" name="form-name" value="contact" />
-
-                  {/* Honeypot field - must match exactly */}
-                  <div style={{display: 'none'}}>
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                  </div>
-
-                  {/* Name field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
-                    </label>
-                    <input
-                        name="name"
-                        type="text"
-                        placeholder="Name"
-                        required
-                        disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    />
-                  </div>
-
-                  {/* Email field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        required
-                        disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    />
-                  </div>
-
-                  {/* Message field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                        name="message"
-                        placeholder="Message"
-                        required
-                        rows={5}
-                        disabled={isSubmitting}
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-                    />
-                  </div>
-
-                  {/* Submit button - exact same structure as test-form.html */}
-                  <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="inline-flex items-center justify-center w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white font-medium transition-all hover:shadow-lg active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    {isSubmitting ? "Sending..." : "Send"}
-                    <SendIcon className="ml-2 h-4 w-4" />
-                  </button>
-                </form>
+                {/* EXACT COPY OF WORKING test-form.html */}
+                <div dangerouslySetInnerHTML={{
+                  __html: `
+                    <form name="contact" method="POST" data-netlify="true">
+                      <input type="hidden" name="form-name" value="contact" />
+                      
+                      <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Name *</label>
+                        <input name="name" placeholder="Name" required style="display: flex; height: 2.5rem; width: 100%; border-radius: 0.375rem; border: 1px solid #d1d5db; background-color: #ffffff; padding: 0.5rem 0.75rem; font-size: 0.875rem;" />
+                      </div>
+                      
+                      <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Email *</label>
+                        <input name="email" type="email" placeholder="Email" required style="display: flex; height: 2.5rem; width: 100%; border-radius: 0.375rem; border: 1px solid #d1d5db; background-color: #ffffff; padding: 0.5rem 0.75rem; font-size: 0.875rem;" />
+                      </div>
+                      
+                      <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Message *</label>
+                        <textarea name="message" placeholder="Message" required rows="5" style="display: flex; min-height: 5rem; width: 100%; border-radius: 0.375rem; border: 1px solid #d1d5db; background-color: #ffffff; padding: 0.5rem 0.75rem; font-size: 0.875rem; resize: none;"></textarea>
+                      </div>
+                      
+                      <button type="submit" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 2.5rem; border-radius: 0.375rem; background: linear-gradient(to right, #00A99D, #F5A623); color: white; font-weight: 500; border: none; cursor: pointer;">
+                        Send Message
+                      </button>
+                    </form>
+                  `
+                }} />
               </div>
             </div>
           </div>
