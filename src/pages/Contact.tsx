@@ -31,6 +31,44 @@ const Contact = () => {
     }
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const form = e.currentTarget;
+      const formDataObj = new FormData(form);
+      // Ensure form-name is present for Netlify
+      if (!formDataObj.get('form-name')) formDataObj.append('form-name', 'contact');
+      const payload = new URLSearchParams();
+      formDataObj.forEach((value, key) => {
+        payload.append(key, String(value));
+      });
+
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString(),
+      });
+
+      if (!res.ok) {
+        // In local dev, Netlify processing isn't available. Show success to avoid confusion.
+        if (window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.')) {
+          toast.success("Message captured locally.", { description: "Deploy to Netlify to trigger email notifications." });
+        } else {
+          throw new Error(`Submission failed: ${res.status}`);
+        }
+      } else {
+        toast.success("Thank you for your message! We'll get back to you soon.", { description: 'Your message has been sent successfully.' });
+      }
+
+      setFormData({ name: '', email: '', message: '' });
+      // Optional: keep user on contact page without query params
+      window.history.replaceState({}, '', '/contact');
+    } catch (err) {
+      console.error('Form submission error:', err);
+      toast.error('Failed to send message.', { description: 'Please try again or contact us by phone/email.' });
+    }
+  };
+
   return (
     <Layout>
       <SEO 
@@ -110,9 +148,10 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
-                action="/contact?submitted=true"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
+                acceptCharset="UTF-8"
+                onSubmit={handleSubmit}
                 className="space-y-6"
               >
                 <input type="hidden" name="form-name" value="contact" />
