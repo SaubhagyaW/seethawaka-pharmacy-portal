@@ -90,11 +90,6 @@ const Contact = () => {
           const formElement = e.target as HTMLFormElement;
           const formDataNetlify = new FormData(formElement);
 
-          // Ensure all current form values are included for Netlify
-          formDataNetlify.set('name', formData.name);
-          formDataNetlify.set('email', formData.email);
-          formDataNetlify.set('message', formData.message);
-
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
