@@ -88,21 +88,18 @@ const Contact = () => {
         if (isProduction) {
           // Submit to Netlify Forms as fallback
           const formElement = e.target as HTMLFormElement;
+          const formDataNetlify = new FormData(formElement);
 
-          // Manually collect form data
-          const formData = new URLSearchParams();
-          const inputs = formElement.querySelectorAll('input, textarea, select');
-
-          inputs.forEach((input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
-            if (input.name && input.value) {
-              formData.append(input.name, input.value);
-            }
-          });
+          // Convert FormData to URLSearchParams properly
+          const params = new URLSearchParams();
+          for (const [key, value] of formDataNetlify.entries()) {
+            params.append(key, value as string);
+          }
 
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: formData.toString(),
+            body: params.toString(),
           });
 
           if (response.ok) {
