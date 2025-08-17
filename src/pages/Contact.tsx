@@ -25,12 +25,14 @@ const Contact = () => {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
+    // Add form-name for Netlify
+    formData.append('form-name', 'contact');
+
     try {
       // Submit to Netlify
       const response = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString()
+        body: formData
       });
 
       if (response.ok) {
