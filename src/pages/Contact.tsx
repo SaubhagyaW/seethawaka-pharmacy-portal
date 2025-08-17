@@ -16,6 +16,20 @@ const Contact = () => {
     }
   }, []);
 
+  // MINIMAL JavaScript - only for development mode
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Only prevent default in development mode
+    if (window.location.hostname.includes('localhost') || window.location.hostname.startsWith('127.')) {
+      e.preventDefault();
+      toast.info("Development mode", {
+        description: "Deploy to Netlify to send real emails.",
+      });
+      // Reset form in development
+      (e.target as HTMLFormElement).reset();
+    }
+    // In production, do NOTHING - let form submit naturally
+  };
+
   return (
       <Layout>
         <SEO
@@ -94,17 +108,17 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Contact Form - PURE HTML LIKE TEST FORM */}
+              {/* Contact Form */}
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
-                {/* EXACT SAME STRUCTURE AS WORKING TEST FORM */}
                 <form
                     name="contact"
                     method="POST"
                     action="/contact?submitted=true"
                     data-netlify="true"
+                    onSubmit={handleSubmit}
                     className="space-y-6"
                 >
                   <input type="hidden" name="form-name" value="contact" />
