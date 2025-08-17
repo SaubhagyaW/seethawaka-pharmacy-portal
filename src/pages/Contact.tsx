@@ -32,6 +32,16 @@ const Contact = () => {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // In production (on Netlify), allow native form submission so it's recorded
+    const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
+    
+    if (isProduction) {
+      // Let the form submit naturally to Netlify - this will record in dashboard
+      toast.success("Sending message...", { description: "Please wait while we process your submission." });
+      return;
+    }
+
+    // For local development, use AJAX
     e.preventDefault();
     try {
       const form = e.currentTarget;
@@ -55,19 +65,12 @@ const Contact = () => {
       });
 
       if (!res.ok) {
-        // In local dev, Netlify processing isn't available. Show success to avoid confusion.
-        if (window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.')) {
-          toast.success("Message captured locally.", { description: "Deploy to Netlify to trigger email notifications." });
-        } else {
-          throw new Error(`Submission failed: ${res.status}`);
-        }
+        toast.success("Message captured locally.", { description: "Deploy to Netlify to see form submissions recorded." });
       } else {
         toast.success("Thank you for your message! We'll get back to you soon.", { description: 'Your message has been sent successfully.' });
       }
 
       setFormData({ name: '', email: '', message: '' });
-      // Optional: keep user on contact page without query params
-      window.history.replaceState({}, '', '/contact');
     } catch (err) {
       console.error('Form submission error:', err);
       toast.error('Failed to send message.', { description: 'Please try again or contact us by phone/email.' });
@@ -153,6 +156,7 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
+                action="/?no-cache=1"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 acceptCharset="UTF-8"
