@@ -8,17 +8,7 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {name, value} = e.target;
-    setFormData(prev => ({...prev, [name]: value}));
-  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -35,9 +25,9 @@ const Contact = () => {
     const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
     if (isProduction) {
-      // Let Netlify handle the form submission naturally
+      // Let Netlify handle completely - no JavaScript interference
       setIsSubmitting(true);
-      // Don't prevent default - let form submit to Netlify naturally
+      // Don't prevent default - let form submit naturally
       return;
     } else {
       // For local development only
@@ -48,8 +38,9 @@ const Contact = () => {
         toast.success("Message captured locally.", {
           description: "Deploy to Netlify to send actual emails.",
         });
-        setFormData({name: '', email: '', message: ''});
         setIsSubmitting(false);
+        // Reset form naturally
+        (e.target as HTMLFormElement).reset();
       }, 1000);
     }
   };
@@ -154,57 +145,52 @@ const Contact = () => {
 
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Name
+                      Name *
                     </label>
-                    <Input
+                    <input
                         id="name"
                         name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your name"
+                        type="text"
+                        placeholder="Your full name"
                         required
-                        className="w-full"
                         disabled={isSubmitting}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
+                      Email *
                     </label>
-                    <Input
+                    <input
                         id="email"
                         name="email"
                         type="email"
-                        value={formData.email}
-                        onChange={handleChange}
                         placeholder="your.email@example.com"
                         required
-                        className="w-full"
                         disabled={isSubmitting}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
+                      Message *
                     </label>
-                    <Textarea
+                    <textarea
                         id="message"
                         name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="How can we help you?"
+                        placeholder="How can we help you? Please describe your inquiry in detail."
                         rows={5}
                         required
-                        className="w-full resize-none"
                         disabled={isSubmitting}
+                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                     />
                   </div>
 
                   <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-pharmacy-500 to-medical-500 font-medium transition-all hover:shadow-lg"
+                      className="w-full bg-gradient-to-r from-pharmacy-500 to-medical-500 font-medium transition-all hover:shadow-lg disabled:opacity-50"
                       disabled={isSubmitting}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
