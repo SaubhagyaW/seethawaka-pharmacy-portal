@@ -18,22 +18,36 @@ const Contact = () => {
     }
   }, []);
 
-  // CRITICAL: Use ref to handle form submission without React interference
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Always prevent default to avoid redirect
     setIsSubmitting(true);
 
-    // Only prevent default in development
-    if (window.location.hostname.includes('localhost') || window.location.hostname.startsWith('127.')) {
-      e.preventDefault();
-      setTimeout(() => {
-        toast.success("Message captured locally.", {
-          description: "Deploy to Netlify to send actual emails.",
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    try {
+      // Submit to Netlify
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString()
+      });
+
+      if (response.ok) {
+        toast.success("Thank you for your message! We'll get back to you soon.", {
+          description: "Your message has been sent successfully to info@seethawakapharmacy.com",
         });
-        setIsSubmitting(false);
-        (e.target as HTMLFormElement).reset();
-      }, 1000);
+        form.reset();
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      toast.error("Failed to send message", {
+        description: "Please try again or contact us directly at info@seethawakapharmacy.com",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-    // In production, do NOT prevent default - let Netlify handle it naturally
   };
 
   return (
