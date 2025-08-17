@@ -87,13 +87,10 @@ const Contact = () => {
 
         if (isProduction) {
           // Submit to Netlify Forms as fallback
-          const formElement = e.target as HTMLFormElement;
-          const formDataNetlify = new FormData(formElement);
-
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(formDataNetlify as any).toString(),
+            body: `form-name=contact&name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&message=${encodeURIComponent(formData.message)}`,
           });
 
           if (response.ok) {
