@@ -31,8 +31,7 @@ const Hero = ({ className }: HeroProps) => {
               Quality Healthcare <span className="text-pharmacy-600">Made Accessible</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy is brand new to your community, providing expert care, quality medicines, and personalized health solutions to keep you and your family healthy.
-            </p>
+              Proudly serving your community since January 2025, Seethawaka Pharmacy provides expert care, reliable medicines, and tailored health solutions for you and your family.            </p>
             <div className="flex flex-wrap gap-4">
               <Link 
                 to="/about" 
