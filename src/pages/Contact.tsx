@@ -93,12 +93,7 @@ const Contact = () => {
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams({
-              'form-name': 'contact',
-              'name': formData.name,
-              'email': formData.email,
-              'message': formData.message
-            }).toString(),
+            body: new URLSearchParams(formDataNetlify as any).toString(),
           });
 
           if (response.ok) {
