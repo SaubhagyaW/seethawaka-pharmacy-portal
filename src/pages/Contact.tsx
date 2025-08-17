@@ -86,17 +86,14 @@ const Contact = () => {
         const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
         if (isProduction) {
-          // Make sure to prevent default first
-          e.preventDefault();
-
           // Use React state data directly instead of FormData
-        const netlifyData = {
-          'form-name': 'contact',
-          'bot-field': '',
-          'name': formData.name,
-          'email': formData.email,
-          'message': formData.message,
-        };
+          const netlifyData = {
+            'form-name': 'contact',
+            'bot-field': '',
+            'name': formData.name,
+            'email': formData.email,
+            'message': formData.message,
+          };
 
           console.log('Netlify submission data:', netlifyData);
 
