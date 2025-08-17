@@ -18,53 +18,37 @@ const Contact = () => {
     }
   }, []);
 
-  // Encode form data for Netlify
-  const encode = (data: Record<string, string>) => {
-    return Object.keys(data)
-        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-        .join("&");
-  };
-
-  // Handle form submission with toast notification (no redirect)
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Always prevent default to avoid redirect
+  // Handle form submission without redirect using hidden iframe
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsSubmitting(true);
 
     const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
 
-    // Convert FormData to object for Netlify
-    const data: Record<string, string> = {};
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
+    // Create a hidden iframe for submission
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'hidden-form-frame';
+    document.body.appendChild(iframe);
 
-    // Add form-name for Netlify
-    data['form-name'] = 'contact';
+    // Set form target to the hidden iframe
+    form.target = 'hidden-form-frame';
 
-    try {
-      // Submit to Netlify with proper encoding
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(data)
+    // Listen for iframe load (form submission complete)
+    iframe.onload = () => {
+      toast.success("Thank you for your message! We'll get back to you soon.", {
+        description: "Your message has been sent successfully to info@seethawakapharmacy.com",
       });
-
-      if (response.ok) {
-        toast.success("Thank you for your message! We'll get back to you soon.", {
-          description: "Your message has been sent successfully to info@seethawakapharmacy.com",
-        });
-        form.reset();
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    } catch (error) {
-      toast.error("Failed to send message", {
-        description: "Please try again or contact us directly at info@seethawakapharmacy.com",
-      });
-    } finally {
+      form.reset();
       setIsSubmitting(false);
-    }
+
+      // Clean up
+      document.body.removeChild(iframe);
+      form.target = '';
+    };
+
+    // Submit the form naturally (this will go to Netlify)
+    form.submit();
   };
 
   return (
