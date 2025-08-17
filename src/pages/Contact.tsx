@@ -1,9 +1,6 @@
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import {CalendarCheck, Mail, MapPin, Phone, SendIcon} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
@@ -22,15 +19,25 @@ const Contact = () => {
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("Form submission started");
+
+    // Get form data for debugging
+    const formData = new FormData(e.target as HTMLFormElement);
+    console.log("Form data:", {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    });
+
     const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
     if (isProduction) {
-      // Let Netlify handle completely - no JavaScript interference
+      console.log("Production mode - letting Netlify handle form");
       setIsSubmitting(true);
-      // Don't prevent default - let form submit naturally
+      // Let form submit naturally to Netlify
       return;
     } else {
-      // For local development only
+      console.log("Development mode - preventing default");
       e.preventDefault();
       setIsSubmitting(true);
 
@@ -39,7 +46,6 @@ const Contact = () => {
           description: "Deploy to Netlify to send actual emails.",
         });
         setIsSubmitting(false);
-        // Reset form naturally
         (e.target as HTMLFormElement).reset();
       }, 1000);
     }
@@ -127,6 +133,8 @@ const Contact = () => {
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+
+                {/* Simple, foolproof HTML form */}
                 <form
                     name="contact"
                     method="POST"
@@ -134,32 +142,60 @@ const Contact = () => {
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
-                    className="space-y-6"
                 >
+                  {/* Hidden fields for Netlify */}
                   <input type="hidden" name="form-name" value="contact"/>
                   <div style={{display: 'none'}}>
-                    <label>
-                      Don't fill this out if you're human: <input name="bot-field"/>
-                    </label>
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                   </div>
 
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  {/* Name Field */}
+                  <div style={{marginBottom: '1.5rem'}}>
+                    <label
+                        htmlFor="name"
+                        style={{
+                          display: 'block',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          color: '#374151',
+                          marginBottom: '0.25rem'
+                        }}
+                    >
                       Name *
                     </label>
                     <input
                         id="name"
                         name="name"
                         type="text"
-                        placeholder="Your full name"
+                        placeholder="Enter your full name"
                         required
                         disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        style={{
+                          display: 'flex',
+                          height: '2.5rem',
+                          width: '100%',
+                          borderRadius: '0.375rem',
+                          border: '1px solid #d1d5db',
+                          backgroundColor: '#ffffff',
+                          padding: '0.5rem 0.75rem',
+                          fontSize: '0.875rem',
+                          lineHeight: '1.25rem'
+                        }}
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  {/* Email Field */}
+                  <div style={{marginBottom: '1.5rem'}}>
+                    <label
+                        htmlFor="email"
+                        style={{
+                          display: 'block',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          color: '#374151',
+                          marginBottom: '0.25rem'
+                        }}
+                    >
                       Email *
                     </label>
                     <input
@@ -169,12 +205,32 @@ const Contact = () => {
                         placeholder="your.email@example.com"
                         required
                         disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        style={{
+                          display: 'flex',
+                          height: '2.5rem',
+                          width: '100%',
+                          borderRadius: '0.375rem',
+                          border: '1px solid #d1d5db',
+                          backgroundColor: '#ffffff',
+                          padding: '0.5rem 0.75rem',
+                          fontSize: '0.875rem',
+                          lineHeight: '1.25rem'
+                        }}
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  {/* Message Field */}
+                  <div style={{marginBottom: '1.5rem'}}>
+                    <label
+                        htmlFor="message"
+                        style={{
+                          display: 'block',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          color: '#374151',
+                          marginBottom: '0.25rem'
+                        }}
+                    >
                       Message *
                     </label>
                     <textarea
@@ -184,18 +240,43 @@ const Contact = () => {
                         rows={5}
                         required
                         disabled={isSubmitting}
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                        style={{
+                          display: 'flex',
+                          minHeight: '5rem',
+                          width: '100%',
+                          borderRadius: '0.375rem',
+                          border: '1px solid #d1d5db',
+                          backgroundColor: '#ffffff',
+                          padding: '0.5rem 0.75rem',
+                          fontSize: '0.875rem',
+                          lineHeight: '1.25rem',
+                          resize: 'none'
+                        }}
                     />
                   </div>
 
-                  <Button
+                  {/* Submit Button */}
+                  <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-pharmacy-500 to-medical-500 font-medium transition-all hover:shadow-lg disabled:opacity-50"
                       disabled={isSubmitting}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: '2.5rem',
+                        borderRadius: '0.375rem',
+                        background: 'linear-gradient(to right, #00A99D, #F5A623)',
+                        color: 'white',
+                        fontWeight: '500',
+                        border: 'none',
+                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                        opacity: isSubmitting ? 0.5 : 1
+                      }}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
-                    <SendIcon className="ml-2 h-4 w-4"/>
-                  </Button>
+                    <SendIcon style={{marginLeft: '0.5rem', width: '1rem', height: '1rem'}} />
+                  </button>
                 </form>
               </div>
             </div>
