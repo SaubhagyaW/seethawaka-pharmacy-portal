@@ -86,6 +86,9 @@ const Contact = () => {
         const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
         if (isProduction) {
+          // Make sure to prevent default first
+          e.preventDefault();
+
           // Submit to Netlify Forms as fallback
           const formElement = e.target as HTMLFormElement;
           const formData = new FormData(formElement);
