@@ -5,8 +5,6 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("submitted") === "true") {
@@ -19,35 +17,22 @@ const Contact = () => {
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Form submission started");
-
-    // Get form data for debugging
-    const formData = new FormData(e.target as HTMLFormElement);
-    console.log("Form data:", {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message')
-    });
-
     const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
     if (isProduction) {
-      console.log("Production mode - letting Netlify handle form");
-      setIsSubmitting(true);
-      // Let form submit naturally to Netlify
+      // In production: DO ABSOLUTELY NOTHING - let form submit naturally
+      console.log("Production: Letting Netlify handle form completely");
       return;
     } else {
-      console.log("Development mode - preventing default");
+      // Only in development: prevent and show message
       e.preventDefault();
-      setIsSubmitting(true);
-
+      console.log("Development: Form prevented");
+      toast.info("Development mode", {
+        description: "Deploy to Netlify to send actual emails.",
+      });
       setTimeout(() => {
-        toast.success("Message captured locally.", {
-          description: "Deploy to Netlify to send actual emails.",
-        });
-        setIsSubmitting(false);
         (e.target as HTMLFormElement).reset();
-      }, 1000);
+      }, 100);
     }
   };
 
@@ -129,12 +114,11 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Contact Form */}
+              {/* Contact Form - EXACT SAME AS WORKING TEST FORM */}
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
-                {/* Simple, foolproof HTML form */}
                 <form
                     name="contact"
                     method="POST"
@@ -142,25 +126,15 @@ const Contact = () => {
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
+                    className="space-y-6"
                 >
-                  {/* Hidden fields for Netlify */}
                   <input type="hidden" name="form-name" value="contact"/>
                   <div style={{display: 'none'}}>
                     <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                   </div>
 
-                  {/* Name Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
-                    <label
-                        htmlFor="name"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
-                    >
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       Name *
                     </label>
                     <input
@@ -169,33 +143,12 @@ const Contact = () => {
                         type="text"
                         placeholder="Enter your full name"
                         required
-                        disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          height: '2.5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem'
-                        }}
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pharmacy-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
 
-                  {/* Email Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
-                    <label
-                        htmlFor="email"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
-                    >
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email *
                     </label>
                     <input
@@ -204,33 +157,12 @@ const Contact = () => {
                         type="email"
                         placeholder="your.email@example.com"
                         required
-                        disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          height: '2.5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem'
-                        }}
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pharmacy-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
 
-                  {/* Message Field */}
-                  <div style={{marginBottom: '1.5rem'}}>
-                    <label
-                        htmlFor="message"
-                        style={{
-                          display: 'block',
-                          fontSize: '0.875rem',
-                          fontWeight: '500',
-                          color: '#374151',
-                          marginBottom: '0.25rem'
-                        }}
-                    >
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       Message *
                     </label>
                     <textarea
@@ -239,43 +171,16 @@ const Contact = () => {
                         placeholder="How can we help you? Please describe your inquiry in detail."
                         rows={5}
                         required
-                        disabled={isSubmitting}
-                        style={{
-                          display: 'flex',
-                          minHeight: '5rem',
-                          width: '100%',
-                          borderRadius: '0.375rem',
-                          border: '1px solid #d1d5db',
-                          backgroundColor: '#ffffff',
-                          padding: '0.5rem 0.75rem',
-                          fontSize: '0.875rem',
-                          lineHeight: '1.25rem',
-                          resize: 'none'
-                        }}
+                        className="flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pharmacy-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                     />
                   </div>
 
-                  {/* Submit Button */}
                   <button
                       type="submit"
-                      disabled={isSubmitting}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '100%',
-                        height: '2.5rem',
-                        borderRadius: '0.375rem',
-                        background: 'linear-gradient(to right, #00A99D, #F5A623)',
-                        color: 'white',
-                        fontWeight: '500',
-                        border: 'none',
-                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                        opacity: isSubmitting ? 0.5 : 1
-                      }}
+                      className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white hover:shadow-lg"
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                    <SendIcon style={{marginLeft: '0.5rem', width: '1rem', height: '1rem'}} />
+                    Send Message
+                    <SendIcon className="ml-2 h-4 w-4" />
                   </button>
                 </form>
               </div>
