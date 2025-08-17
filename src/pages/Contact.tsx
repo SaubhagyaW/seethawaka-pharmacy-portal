@@ -18,37 +18,22 @@ const Contact = () => {
     }
   }, []);
 
-  // Handle form submission without redirect using hidden iframe
+  // CRITICAL: Use ref to handle form submission without React interference
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     setIsSubmitting(true);
 
-    const form = e.target as HTMLFormElement;
-
-    // Create a hidden iframe for submission
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.name = 'hidden-form-frame';
-    document.body.appendChild(iframe);
-
-    // Set form target to the hidden iframe
-    form.target = 'hidden-form-frame';
-
-    // Listen for iframe load (form submission complete)
-    iframe.onload = () => {
-      toast.success("Thank you for your message! We'll get back to you soon.", {
-        description: "Your message has been sent successfully to info@seethawakapharmacy.com",
-      });
-      form.reset();
-      setIsSubmitting(false);
-
-      // Clean up
-      document.body.removeChild(iframe);
-      form.target = '';
-    };
-
-    // Submit the form naturally (this will go to Netlify)
-    form.submit();
+    // Only prevent default in development
+    if (window.location.hostname.includes('localhost') || window.location.hostname.startsWith('127.')) {
+      e.preventDefault();
+      setTimeout(() => {
+        toast.success("Message captured locally.", {
+          description: "Deploy to Netlify to send actual emails.",
+        });
+        setIsSubmitting(false);
+        (e.target as HTMLFormElement).reset();
+      }, 1000);
+    }
+    // In production, do NOT prevent default - let Netlify handle it naturally
   };
 
   return (
