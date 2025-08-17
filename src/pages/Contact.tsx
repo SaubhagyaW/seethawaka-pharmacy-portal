@@ -89,15 +89,20 @@ const Contact = () => {
           // Make sure to prevent default first
           e.preventDefault();
 
-          // Submit to Netlify Forms as fallback
+          // Manual collection as fallback
           const formElement = e.target as HTMLFormElement;
-          const formData = new FormData(formElement);
-
-          // Convert to plain object first, then to URLSearchParams
           const dataObj: Record<string, string> = {};
-          formData.forEach((value, key) => {
-            dataObj[key] = value.toString();
+
+          // Get all input/textarea/select elements
+          const elements = formElement.querySelectorAll('input, textarea, select');
+          elements.forEach((element: any) => {
+            if (element.name && element.value !== undefined) {
+              dataObj[element.name] = element.value;
+              console.log(`Found: ${element.name} = ${element.value}`);
+            }
           });
+
+          console.log('Manually collected data:', dataObj);
 
           const response = await fetch('/', {
             method: 'POST',
