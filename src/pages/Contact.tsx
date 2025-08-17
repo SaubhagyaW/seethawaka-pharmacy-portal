@@ -20,12 +20,32 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Thank you for your message! We'll get back to you soon.", {
-      description: "Your message has been sent successfully.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const payload: Record<string, string> = {
+        "form-name": "contact",
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(payload).toString(),
+      });
+
+      toast.success("Thank you for your message! We'll get back to you soon.", {
+        description: "Your message has been sent successfully.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast.error("Failed to send message.", {
+        description: "Please try again or contact us by phone/email.",
+      });
+    }
   };
 
   return (
@@ -104,7 +124,20 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up" style={{ animationDelay: '0.2s' }}>
               <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don’t fill this out: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                     Name
