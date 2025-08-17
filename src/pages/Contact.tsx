@@ -90,10 +90,16 @@ const Contact = () => {
           const formElement = e.target as HTMLFormElement;
           const formDataNetlify = new FormData(formElement);
 
+          // Convert FormData to URLSearchParams properly
+          const params = new URLSearchParams();
+          for (const [key, value] of formDataNetlify.entries()) {
+            params.append(key, value as string);
+          }
+
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(formDataNetlify as any).toString(),
+            body: params.toString(),
           });
 
           if (response.ok) {
