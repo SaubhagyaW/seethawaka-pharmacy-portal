@@ -36,8 +36,7 @@ const Contact = () => {
     try {
       const form = e.currentTarget;
       const formDataObj = new FormData(form);
-      // Ensure form-name is present for Netlify
-      if (!formDataObj.get('form-name')) formDataObj.append('form-name', 'contact');
+      
       const payload = new URLSearchParams({
         'form-name': 'contact',
         name: formData.name,

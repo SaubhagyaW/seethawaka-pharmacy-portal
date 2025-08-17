@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,12 +31,12 @@
     <div id="root"></div>
 
     <!-- Netlify Forms template (hidden) for SPA detection -->
-    <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="contact" />
-      <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
       <input type="text" name="name" />
       <input type="email" name="email" />
       <textarea name="message"></textarea>
+      <input name="bot-field" />
     </form>
 
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
