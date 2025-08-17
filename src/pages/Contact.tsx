@@ -5,7 +5,7 @@ import { CalendarCheck, Mail, MapPin, Phone, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const Contact = () => {
@@ -20,33 +20,16 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const payload: Record<string, string> = {
-        "form-name": "contact",
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      };
-
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(payload).toString(),
-      });
-
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("submitted") === "true") {
       toast.success("Thank you for your message! We'll get back to you soon.", {
         description: "Your message has been sent successfully.",
       });
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("Form submission error:", error);
-      toast.error("Failed to send message.", {
-        description: "Please try again or contact us by phone/email.",
-      });
+      // Clean up the URL
+      window.history.replaceState({}, "", "/contact");
     }
-  };
+  }, []);
 
   return (
     <Layout>
@@ -127,9 +110,9 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
+                action="/contact?submitted=true"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
                 className="space-y-6"
               >
                 <input type="hidden" name="form-name" value="contact" />
