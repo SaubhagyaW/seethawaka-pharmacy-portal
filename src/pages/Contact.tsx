@@ -18,6 +18,14 @@ const Contact = () => {
     }
   }, []);
 
+  // Encode form data for Netlify
+  const encode = (data: Record<string, string>) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+  };
+
+  // Handle form submission with toast notification (no redirect)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Always prevent default to avoid redirect
     setIsSubmitting(true);
@@ -25,14 +33,21 @@ const Contact = () => {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
+    // Convert FormData to object for Netlify
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+
     // Add form-name for Netlify
-    formData.append('form-name', 'contact');
+    data['form-name'] = 'contact';
 
     try {
-      // Submit to Netlify
+      // Submit to Netlify with proper encoding
       const response = await fetch('/', {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(data)
       });
 
       if (response.ok) {
