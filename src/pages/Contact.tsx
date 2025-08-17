@@ -156,7 +156,7 @@ const Contact = () => {
               <form
                 name="contact"
                 method="POST"
-                action="/contact?submitted=true"
+                action="/?no-cache=1"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 acceptCharset="UTF-8"
