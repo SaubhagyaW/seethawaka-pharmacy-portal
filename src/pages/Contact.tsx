@@ -88,18 +88,18 @@ const Contact = () => {
         if (isProduction) {
           // Submit to Netlify Forms as fallback
           const formElement = e.target as HTMLFormElement;
-          const formDataNetlify = new FormData(formElement);
+          const formData = new FormData(formElement);
 
-          // Convert FormData to URLSearchParams properly
-          const params = new URLSearchParams();
-          for (const [key, value] of formDataNetlify.entries()) {
-            params.append(key, value as string);
-          }
+          // Convert to plain object first, then to URLSearchParams
+          const dataObj: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            dataObj[key] = value.toString();
+          });
 
           const response = await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: params.toString(),
+            body: new URLSearchParams(dataObj).toString(),
           });
 
           if (response.ok) {
