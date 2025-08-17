@@ -73,50 +73,31 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Try EmailJS first
-      const emailResult = await sendEmailJS(formData);
+      // Submit directly to Netlify Forms using React state
+      const netlifyData = {
+        'form-name': 'contact',
+        'name': formData.name,
+        'email': formData.email,
+        'message': formData.message,
+      };
 
-      if (emailResult.success) {
+      console.log('Submitting data:', netlifyData);
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams(netlifyData).toString(),
+      });
+
+      console.log('Response status:', response.status);
+
+      if (response.ok) {
         toast.success("Message sent successfully!", {
-          description: "Your message has been sent to info@seethawakapharmacy.com. We'll get back to you soon.",
+          description: "Your message has been sent. We'll get back to you soon.",
         });
         setFormData({name: '', email: '', message: ''});
       } else {
-        // Fallback to Netlify Forms
-        const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
-
-        if (isProduction) {
-          // Use React state data directly instead of FormData
-          const netlifyData = {
-            'form-name': 'contact',
-            'bot-field': '',
-            'name': formData.name,
-            'email': formData.email,
-            'message': formData.message,
-          };
-
-          console.log('Netlify submission data:', netlifyData);
-
-          const response = await fetch('/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          body: new URLSearchParams(netlifyData).toString(),
-          });
-
-          if (response.ok) {
-            toast.success("Message submitted!", {
-              description: "Your message has been recorded. We'll get back to you soon.",
-            });
-            setFormData({name: '', email: '', message: ''});
-          } else {
-            throw new Error('Form submission failed');
-          }
-        } else {
-          toast.info("Development mode", {
-            description: "Configure EmailJS or deploy to Netlify to send actual emails.",
-          });
-          setFormData({name: '', email: '', message: ''});
-        }
+        throw new Error(`Form submission failed with status: ${response.status}`);
       }
     } catch (error) {
       console.error('Form submission error:', error);
@@ -213,7 +194,6 @@ const Contact = () => {
                 <form
                     name="contact"
                     method="POST"
-                    action="/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
