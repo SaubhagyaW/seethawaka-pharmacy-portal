@@ -87,58 +87,16 @@ const Contact = () => {
               </div>
 
               {/* Contact Form - EXACT COPY OF WORKING test-form.html */}
-              <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
-                   style={{animationDelay: '0.2s'}}>
-                <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+              <div style={{padding: '2rem', maxWidth: '600px', margin: '0 auto'}}>
+                <h1>Contact Us</h1>
 
-                {/* NO REACT HANDLERS - PURE HTML FORM */}
+                {/* EXACT COPY OF YOUR WORKING test-form.html */}
                 <form name="contact" method="POST" data-netlify="true">
                   <input type="hidden" name="form-name" value="contact" />
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
-                    </label>
-                    <input
-                        name="name"
-                        placeholder="Name"
-                        required
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    />
-                  </div>
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        required
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    />
-                  </div>
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                        name="message"
-                        placeholder="Message"
-                        required
-                        rows={5}
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
-                    />
-                  </div>
-
-                  <button
-                      type="submit"
-                      className="inline-flex items-center justify-center w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white font-medium transition-all hover:shadow-lg"
-                  >
-                    Send Message
-                  </button>
+                  <input name="name" placeholder="Name" required />
+                  <input name="email" type="email" placeholder="Email" required />
+                  <textarea name="message" placeholder="Message" required></textarea>
+                  <button type="submit">Send</button>
                 </form>
               </div>
             </div>
