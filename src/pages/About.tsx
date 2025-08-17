@@ -36,7 +36,7 @@ const About = () => {
               Your Health, <span className="text-pharmacy-600">Our Priority</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Seethawaka Pharmacy was established with a vision to provide exceptional pharmaceutical care to our community. As a newly opened pharmacy, we bring fresh energy and modern approaches to healthcare while maintaining the personalized attention that only a neighborhood pharmacy can offer.
+              Seethawaka Pharmacy was established with a vision to provide exceptional pharmaceutical care to our community. Since January 2025, we have brought fresh energy and modern approaches to healthcare while maintaining the personalized attention that only a neighborhood pharmacy can offer.
             </p>
           </div>
         </div>
