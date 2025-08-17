@@ -38,14 +38,20 @@ const Contact = () => {
       const formDataObj = new FormData(form);
       // Ensure form-name is present for Netlify
       if (!formDataObj.get('form-name')) formDataObj.append('form-name', 'contact');
-      const payload = new URLSearchParams();
-      formDataObj.forEach((value, key) => {
-        payload.append(key, String(value));
+      const payload = new URLSearchParams({
+        'form-name': 'contact',
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        'bot-field': (formDataObj.get('bot-field') as string) || ''
       });
 
       const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: { 
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
         body: payload.toString(),
       });
 
