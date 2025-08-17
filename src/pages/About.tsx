@@ -137,7 +137,7 @@ const About = () => {
             />
 
             <PharmacistCard 
-              name="Mr. Rashan Perera"
+              name="Rashan Rooban"
               title="Pharmacist"
               description="A dedicated pharmacist committed to excellence in pharmaceutical services with a focus on community health education and preventive care, ensuring every customer receives personalized attention and expert guidance."
               imageUrl={pharmacist3Img}
