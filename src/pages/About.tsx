@@ -6,7 +6,8 @@ import { Award, Users, History, Target } from "lucide-react";
 
 // Import local images
 import pharmacist1Img from '/images/pharmacist1.jpeg';
-import pharmacist2Img from '/images/pharmacist2.jpeg'  ;
+import pharmacist2Img from '/images/pharmacist2.jpeg';
+import pharmacist3Img from '/images/pharmacist3.jpeg';
 
 const About = () => {
   return (
@@ -116,7 +117,7 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <PharmacistCard 
               name="Mr. Lahiru Bandara"
               title="Pharmacist"
@@ -132,6 +133,15 @@ const About = () => {
               description="With extensive training and education, Ms. Charmy Siriwardena leads our team with expertise in medication management and patient care."
               imageUrl={pharmacist2Img}
               delay={0.2}
+              className="border-pharmacy-100 hover:border-pharmacy-200"
+            />
+
+            <PharmacistCard 
+              name="Mr. Rashan Perera"
+              title="Pharmacist"
+              description="A dedicated pharmacist committed to excellence in pharmaceutical services with a focus on community health education and preventive care, ensuring every customer receives personalized attention and expert guidance."
+              imageUrl={pharmacist3Img}
+              delay={0.3}
               className="border-pharmacy-100 hover:border-pharmacy-200"
             />
           </div>
