@@ -1,11 +1,24 @@
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import {CalendarCheck, Mail, MapPin, Phone, SendIcon} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Textarea} from "@/components/ui/textarea";
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = e.target;
+    setFormData(prev => ({...prev, [name]: value}));
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -18,45 +31,88 @@ const Contact = () => {
     }
   }, []);
 
-  // Updated form submission handler - no redirects, always use toast
+  const sendEmailJS = async (formData: any) => {
+    try {
+      // EmailJS configuration
+      const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID"; // Replace with your EmailJS service ID
+      const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID"; // Replace with your EmailJS template ID
+      const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY"; // Replace with your EmailJS public key
+
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_email: 'info@seethawakapharmacy.com',
+            reply_to: formData.email,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        return {success: true};
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      return {success: false, error};
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Always prevent default
+    e.preventDefault();
     setIsSubmitting(true);
 
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
-
     try {
-      // Check if we're in development
-      const isDevelopment = window.location.hostname.includes('localhost') ||
-          window.location.hostname.startsWith('127.');
+      // Try EmailJS first
+      const emailResult = await sendEmailJS(formData);
 
-      if (isDevelopment) {
-        // Development mode - simulate success
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        toast.success("Message captured locally.", {
-          description: "Deploy to Netlify to send actual emails.",
+      if (emailResult.success) {
+        toast.success("Message sent successfully!", {
+          description: "Your message has been sent to info@seethawakapharmacy.com. We'll get back to you soon.",
         });
-        form.reset();
+        setFormData({name: '', email: '', message: ''});
       } else {
-        // Production mode - submit to Netlify
-        const response = await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData as any).toString(),
-        });
+        // Fallback to Netlify Forms
+        const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
-        if (response.ok) {
-          toast.success("Thank you for your message! We'll get back to you soon.", {
-            description: "Your message has been sent successfully to info@seethawakapharmacy.com",
+        if (isProduction) {
+          // Submit to Netlify Forms as fallback
+          const formElement = e.target as HTMLFormElement;
+          const formDataNetlify = new FormData(formElement);
+
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams(formDataNetlify as any).toString(),
           });
-          form.reset();
+
+          if (response.ok) {
+            toast.success("Message submitted!", {
+              description: "Your message has been recorded. We'll get back to you soon.",
+            });
+            setFormData({name: '', email: '', message: ''});
+          } else {
+            throw new Error('Form submission failed');
+          }
         } else {
-          throw new Error("Network response was not ok");
+          toast.info("Development mode", {
+            description: "Configure EmailJS or deploy to Netlify to send actual emails.",
+          });
+          setFormData({name: '', email: '', message: ''});
         }
       }
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error('Form submission error:', error);
       toast.error("Failed to send message", {
         description: "Please try again or contact us directly at info@seethawakapharmacy.com",
       });
@@ -76,7 +132,8 @@ const Contact = () => {
         <section className="py-16 md:py-24 bg-pharmacy-50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-up">
-              <div className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-4">
+              <div
+                  className="inline-block rounded-full bg-pharmacy-100 px-3 py-1 text-sm font-medium text-pharmacy-800 mb-4">
                 Get In Touch
               </div>
               <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-4">
@@ -97,7 +154,8 @@ const Contact = () => {
 
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div
+                        className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-5 w-5 text-pharmacy-600"/>
                     </div>
                     <div>
@@ -107,7 +165,8 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div
+                        className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Phone className="h-5 w-5 text-pharmacy-600"/>
                     </div>
                     <div>
@@ -117,7 +176,8 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div
+                        className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Mail className="h-5 w-5 text-pharmacy-600"/>
                     </div>
                     <div>
@@ -127,7 +187,8 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div
+                        className="w-10 h-10 bg-pharmacy-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <CalendarCheck className="h-5 w-5 text-pharmacy-600"/>
                     </div>
                     <div>
@@ -138,81 +199,80 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Contact Form - Updated to prevent redirects */}
+              {/* Contact Form */}
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-
-                {/* Form maintains Netlify compatibility but prevents redirects */}
                 <form
                     name="contact"
                     method="POST"
+                    action="/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
+                    className="space-y-6"
                 >
-                  {/* Hidden form-name field */}
-                  <input type="hidden" name="form-name" value="contact" />
-
-                  {/* Honeypot field - must match exactly */}
-                  <div style={{display: 'none'}}>
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                  </div>
-
-                  {/* Name field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Name *
+                  <input type="hidden" name="form-name" value="contact"/>
+                  <p className="hidden">
+                    <label>
+                      Don't fill this out: <input name="bot-field"/>
                     </label>
-                    <input
+                  </p>
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Name
+                    </label>
+                    <Input
+                        id="name"
                         name="name"
-                        type="text"
-                        placeholder="Name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your name"
                         required
+                        className="w-full"
                         disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
-
-                  {/* Email field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email
                     </label>
-                    <input
+                    <Input
+                        id="email"
                         name="email"
                         type="email"
-                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@example.com"
                         required
+                        className="w-full"
                         disabled={isSubmitting}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
-
-                  {/* Message field - exact same structure as test-form.html */}
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
                     </label>
-                    <textarea
+                    <Textarea
+                        id="message"
                         name="message"
-                        placeholder="Message"
-                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="How can we help you?"
                         rows={5}
+                        required
+                        className="w-full resize-none"
                         disabled={isSubmitting}
-                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                     />
                   </div>
-
-                  {/* Submit button - exact same structure as test-form.html */}
-                  <button
+                  <Button
                       type="submit"
+                      className="w-full bg-gradient-to-r from-pharmacy-500 to-medical-500 font-medium transition-all hover:shadow-lg"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center w-full h-10 px-4 py-2 rounded-md bg-gradient-to-r from-pharmacy-500 to-medical-500 text-white font-medium transition-all hover:shadow-lg active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
                   >
-                    {isSubmitting ? "Sending..." : "Send"}
-                    <SendIcon className="ml-2 h-4 w-4" />
-                  </button>
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                    <SendIcon className="ml-2 h-4 w-4"/>
+                  </Button>
                 </form>
               </div>
             </div>
