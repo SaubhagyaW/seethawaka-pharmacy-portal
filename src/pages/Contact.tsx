@@ -16,8 +16,6 @@ const Contact = () => {
       toast.success("Thank you for your message! We'll get back to you soon.", {
         description: "Your message has been sent successfully.",
       });
-      setFormData({ name: "", email: "", message: "" }); // Clear form
-      setIsSubmitting(false); // Reset loading state
       window.history.replaceState({}, "", "/contact");
     }
   }, []);
