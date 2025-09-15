@@ -8,7 +8,76 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = e.target;
+    setFormData(prev => ({...prev, [name]: value}));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Submit to Formspree (a reliable form service)
+      const response = await fetch('https://formspree.io/f/xpwagwkd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _replyto: formData.email,
+          _subject: 'New message from Seethawaka Pharmacy website'
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!", {
+          description: "We've received your message and will get back to you soon.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+
+      // Fallback: Try a simple POST to current domain
+      try {
+        const fallbackResponse = await fetch('/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&message=${encodeURIComponent(formData.message)}&form-name=contact`
+        });
+
+        if (fallbackResponse.ok) {
+          toast.success("Message sent!", {
+            description: "Your message has been received.",
+          });
+          setFormData({ name: "", email: "", message: "" });
+        } else {
+          throw new Error('Fallback also failed');
+        }
+      } catch (fallbackError) {
+        toast.error("Unable to send message", {
+          description: "Please email us directly at info@seethawakapharmacy.com or call +94 72 383 6007",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -103,24 +172,7 @@ const Contact = () => {
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
 
-                <form
-                    name="contact"
-                    method="POST"
-                    action="/contact?submitted=true"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    className="space-y-6"
-                    onSubmit={() => setIsSubmitting(true)}
-                >
-                  <input type="hidden" name="form-name" value="contact" />
-
-                  <div className="hidden">
-                    <label>
-                      Don't fill this out if you're human:
-                      <input name="bot-field" />
-                    </label>
-                  </div>
-
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       Name
@@ -128,6 +180,8 @@ const Contact = () => {
                     <Input
                         id="name"
                         name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder="Your name"
                         required
                         className="w-full"
@@ -143,6 +197,8 @@ const Contact = () => {
                         id="email"
                         name="email"
                         type="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder="your.email@example.com"
                         required
                         className="w-full"
@@ -157,6 +213,8 @@ const Contact = () => {
                     <Textarea
                         id="message"
                         name="message"
+                        value={formData.message}
+                        onChange={handleChange}
                         placeholder="How can we help you?"
                         rows={5}
                         required
@@ -174,6 +232,13 @@ const Contact = () => {
                     <SendIcon className="ml-2 h-4 w-4"/>
                   </Button>
                 </form>
+
+                <div className="mt-4 text-center text-sm text-gray-500">
+                  Having trouble? Email us directly at{" "}
+                  <a href="mailto:info@seethawakapharmacy.com" className="text-pharmacy-600 hover:underline">
+                    info@seethawakapharmacy.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>
