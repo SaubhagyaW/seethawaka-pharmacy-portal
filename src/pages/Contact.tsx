@@ -25,55 +25,48 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Submit to Formspree (a reliable form service)
-      const response = await fetch('https://formspree.io/f/xpwagwkd', {
+      // Using Web3Forms - replace with your actual access key
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          access_key: "8a9611a4-2df2-47eb-8c98-4c7874f3344c", // Replace this
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          _replyto: formData.email,
-          _subject: 'New message from Seethawaka Pharmacy website'
+          subject: `New message from ${formData.name} - Seethawaka Pharmacy Website`,
+          from_name: "Seethawaka Pharmacy Website",
+          to: "info@seethawakapharmacy.com"
         }),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         toast.success("Message sent successfully!", {
           description: "We've received your message and will get back to you soon.",
         });
         setFormData({ name: "", email: "", message: "" });
       } else {
-        throw new Error('Form submission failed');
+        throw new Error(result.message || 'Form submission failed');
       }
     } catch (error) {
       console.error('Error:', error);
 
-      // Fallback: Try a simple POST to current domain
-      try {
-        const fallbackResponse = await fetch('/contact', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: `name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&message=${encodeURIComponent(formData.message)}&form-name=contact`
-        });
+      // Simple fallback - open email client
+      const subject = encodeURIComponent(`Message from ${formData.name}`);
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+      const mailtoLink = `mailto:info@seethawakapharmacy.com?subject=${subject}&body=${body}`;
 
-        if (fallbackResponse.ok) {
-          toast.success("Message sent!", {
-            description: "Your message has been received.",
-          });
-          setFormData({ name: "", email: "", message: "" });
-        } else {
-          throw new Error('Fallback also failed');
+      toast.error("Unable to send message automatically", {
+        description: "Click OK to open your email client, or call us at +94 72 383 6007",
+        action: {
+          label: "Open Email",
+          onClick: () => window.open(mailtoLink)
         }
-      } catch (fallbackError) {
-        toast.error("Unable to send message", {
-          description: "Please email us directly at info@seethawakapharmacy.com or call +94 72 383 6007",
-        });
-      }
+      });
     } finally {
       setIsSubmitting(false);
     }
