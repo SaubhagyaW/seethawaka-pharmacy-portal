@@ -86,39 +86,23 @@ const Contact = () => {
         const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
         if (isProduction) {
-          // Submit to Netlify Forms as fallback
-          const formElement = e.target as HTMLFormElement;
+          // Create form data manually from React state
+          const netlifyFormData = new FormData();
+          netlifyFormData.append('form-name', 'contact');
+          netlifyFormData.append('name', formData.name);
+          netlifyFormData.append('email', formData.email);
+          netlifyFormData.append('message', formData.message);
 
-          // Debug: Check the form element
-          console.log('Form element:', formElement);
-          console.log('Form elements:', formElement.elements);
-
-          const formData = new FormData(formElement);
-
-          // Debug: Check what FormData captured
-          console.log('FormData contents:');
-          for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-          }
-
-          // Check if FormData is empty
-          if (formData.entries().next().done) {
-            console.log('FormData is completely empty!');
-          }
-
-          // Convert to plain object
-          const dataObj: Record<string, string> = {};
-          formData.forEach((value, key) => {
-            dataObj[key] = value.toString();
+          console.log('Submitting to Netlify with data:', {
+            'form-name': 'contact',
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
           });
-
-          console.log('Data object:', dataObj);
-          console.log('Final body:', new URLSearchParams(dataObj).toString());
 
           const response = await fetch('/', {
             method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: new URLSearchParams(dataObj).toString(),
+            body: netlifyFormData,
           });
 
           if (response.ok) {
@@ -231,18 +215,14 @@ const Contact = () => {
                 <form
                     name="contact"
                     method="POST"
-                    action="/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-6"
                 >
-                  <input type="hidden" name="form-name" value="contact"/>
-                  <p className="hidden">
-                    <label>
-                      Don't fill this out: <input name="bot-field"/>
-                    </label>
-                  </p>
+                  {/* Hidden field for bot detection */}
+                  <input type="hidden" name="bot-field" />
+
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       Name
