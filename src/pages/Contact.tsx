@@ -86,23 +86,20 @@ const Contact = () => {
         const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
 
         if (isProduction) {
-          // Create form data manually from React state
-          const netlifyFormData = new FormData();
-          netlifyFormData.append('form-name', 'contact');
-          netlifyFormData.append('name', formData.name);
-          netlifyFormData.append('email', formData.email);
-          netlifyFormData.append('message', formData.message);
-
-          console.log('Submitting to Netlify with data:', {
+          // Create URL-encoded form data from React state
+          const netlifyData = {
             'form-name': 'contact',
-            name: formData.name,
-            email: formData.email,
-            message: formData.message
-          });
+            'name': formData.name,
+            'email': formData.email,
+            'message': formData.message
+          };
+
+          console.log('Submitting to Netlify with data:', netlifyData);
 
           const response = await fetch('/', {
             method: 'POST',
-            body: netlifyFormData,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(netlifyData).toString(),
           });
 
           if (response.ok) {
