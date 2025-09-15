@@ -229,9 +229,9 @@ const Contact = () => {
                 </form>
 
                 <div className="mt-4 text-center text-sm text-gray-500">
-                  Having trouble? Email us directly at{" "}
+                  All fields marked with * are required. Having trouble?{" "}
                   <a href="mailto:info@seethawakapharmacy.com" className="text-pharmacy-600 hover:underline">
-                    info@seethawakapharmacy.com
+                    Email us directly
                   </a>
                 </div>
               </div>
