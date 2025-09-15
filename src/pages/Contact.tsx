@@ -8,124 +8,17 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {name, value} = e.target;
-    setFormData(prev => ({...prev, [name]: value}));
-  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("submitted") === "true") {
       toast.success("Thank you for your message! We'll get back to you soon.", {
-        description: "Your message has been sent successfully to info@seethawakapharmacy.com",
+        description: "Your message has been sent successfully.",
       });
-      // Clean up the URL
       window.history.replaceState({}, "", "/contact");
     }
   }, []);
-
-  const sendEmailJS = async (formData: any) => {
-    try {
-      // EmailJS configuration
-      const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID"; // Replace with your EmailJS service ID
-      const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID"; // Replace with your EmailJS template ID
-      const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY"; // Replace with your EmailJS public key
-
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: EMAILJS_SERVICE_ID,
-          template_id: EMAILJS_TEMPLATE_ID,
-          user_id: EMAILJS_PUBLIC_KEY,
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            message: formData.message,
-            to_email: 'info@seethawakapharmacy.com',
-            reply_to: formData.email,
-          },
-        }),
-      });
-
-      if (response.ok) {
-        return {success: true};
-      } else {
-        throw new Error('Failed to send email');
-      }
-    } catch (error) {
-      console.error('EmailJS error:', error);
-      return {success: false, error};
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Try EmailJS first
-      const emailResult = await sendEmailJS(formData);
-
-      if (emailResult.success) {
-        toast.success("Message sent successfully!", {
-          description: "Your message has been sent to info@seethawakapharmacy.com. We'll get back to you soon.",
-        });
-        setFormData({name: '', email: '', message: ''});
-      } else {
-        // Fallback to Netlify Forms
-        const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.startsWith('127.');
-
-        if (isProduction) {
-          // Create URL-encoded form data from React state
-          const netlifyData = {
-            'form-name': 'contact',
-            'name': formData.name,
-            'email': formData.email,
-            'message': formData.message
-          };
-
-          console.log('Submitting to Netlify with data:', netlifyData);
-
-          const response = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(netlifyData).toString(),
-          });
-
-          if (response.ok) {
-            toast.success("Message submitted!", {
-              description: "Your message has been recorded. We'll get back to you soon.",
-            });
-            setFormData({name: '', email: '', message: ''});
-          } else {
-            throw new Error('Form submission failed');
-          }
-        } else {
-          toast.info("Development mode", {
-            description: "Configure EmailJS or deploy to Netlify to send actual emails.",
-          });
-          setFormData({name: '', email: '', message: ''});
-        }
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      toast.error("Failed to send message", {
-        description: "Please try again or contact us directly at info@seethawakapharmacy.com",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
       <Layout>
@@ -209,16 +102,24 @@ const Contact = () => {
               <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm animate-fade-up"
                    style={{animationDelay: '0.2s'}}>
                 <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+
                 <form
                     name="contact"
                     method="POST"
+                    action="/contact?submitted=true"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    onSubmit={handleSubmit}
                     className="space-y-6"
+                    onSubmit={() => setIsSubmitting(true)}
                 >
-                  {/* Hidden field for bot detection */}
-                  <input type="hidden" name="bot-field" />
+                  <input type="hidden" name="form-name" value="contact" />
+
+                  <div className="hidden">
+                    <label>
+                      Don't fill this out if you're human:
+                      <input name="bot-field" />
+                    </label>
+                  </div>
 
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -227,14 +128,13 @@ const Contact = () => {
                     <Input
                         id="name"
                         name="name"
-                        value={formData.name}
-                        onChange={handleChange}
                         placeholder="Your name"
                         required
                         className="w-full"
                         disabled={isSubmitting}
                     />
                   </div>
+
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email
@@ -243,14 +143,13 @@ const Contact = () => {
                         id="email"
                         name="email"
                         type="email"
-                        value={formData.email}
-                        onChange={handleChange}
                         placeholder="your.email@example.com"
                         required
                         className="w-full"
                         disabled={isSubmitting}
                     />
                   </div>
+
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       Message
@@ -258,8 +157,6 @@ const Contact = () => {
                     <Textarea
                         id="message"
                         name="message"
-                        value={formData.message}
-                        onChange={handleChange}
                         placeholder="How can we help you?"
                         rows={5}
                         required
@@ -267,6 +164,7 @@ const Contact = () => {
                         disabled={isSubmitting}
                     />
                   </div>
+
                   <Button
                       type="submit"
                       className="w-full bg-gradient-to-r from-pharmacy-500 to-medical-500 font-medium transition-all hover:shadow-lg"
